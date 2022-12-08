@@ -30,8 +30,9 @@ export default function Home() {
   }, [])
 
   return (
-    <div className='max-w-[1300px] mx-auto '  >
-        <div className='flex gap-1'>
+    <div className='max-w-[1300px] mx-auto  '  >
+      <TopNav   />
+        <div className='flex gap-1 lg:px-5 lg:justify-center md:justify-center  sm:justify-center xl:justify-center '>
             <Sidebar />
              <Main />
               <TrendingBar />

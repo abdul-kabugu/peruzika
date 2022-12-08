@@ -15,4 +15,6 @@ export const Links = [
 ]
 
   export  const INFURA_KEY =  'c1bf28b6f255447c97d87cbf0527c644'
+   export const PINATA_KEY = "5f360e4d180f463c3e19"
+   export const PINATA_SECRET = "63b074ac1f484ebbf610cdcdb64b1813626fb540e74067756b903106b27b74db"
   
