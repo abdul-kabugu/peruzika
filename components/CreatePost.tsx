@@ -152,12 +152,12 @@ export default function CreatePost() {
         {theData?.map((post, i) => {
 
           return(
-            <duv>
+            <duv key={i} >
             <h1>{post.content.body}</h1>
              {post.content?.media.map((med, i) => {
 
               return(
-                <Image src={med.url}  width={100} height={100} />
+                <Image key={i} src={med.url}  width={100} height={100} />
               )
              })}  
              </duv>
