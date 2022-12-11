@@ -2,7 +2,8 @@ import {createSlice} from '@reduxjs/toolkit'
 
  const initialState = {
     user : {},
-     isAuthenticated : false
+     isAuthenticated : false,
+     orbis : {}
  }
 
  const useSlice = createSlice({
@@ -14,9 +15,12 @@ import {createSlice} from '@reduxjs/toolkit'
             if(action.payload.mySession.details){
              state.isAuthenticated = true
             }
+        },
+        setOrbisObject : (state, action) => {
+            state.orbis = action.payload
         }
     }
  })
 
- export const {setUser} = useSlice.actions
+ export const {setUser, setOrbisObject} = useSlice.actions
  export default useSlice.reducer

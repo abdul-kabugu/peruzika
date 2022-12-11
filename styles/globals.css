@@ -5,3 +5,17 @@
 .smooth-transition {
     transition: all 0.5s ease-in-out;
   }
+  .custom-border {
+    border: 2px;
+    border-style: dashed;
+    border-color: plum;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .hide-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }

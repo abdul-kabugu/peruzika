@@ -49,7 +49,7 @@ export default function Sidebar() {
   return (
     <>
     <div className='md:flex hidden flex-col w-[300px] h-screen border-r-2 border-purple-500 pt-3 px-4' >
-        <div className='flex items-end gap-2 mb-4 mt-2'>
+        <div className='flex items-end gap-2 mb-4 mt-1 '>
             <Image  src="/img/peruzi.png" alt='logo' width={60} height={60} />
              <p className='text-gray-400 font-semibold'>Beta</p>
         </div>
