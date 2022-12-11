@@ -20,6 +20,12 @@ export default function Home() {
            return res
   }
   
+   const  getConnectedUser = async () => {
+     const currentUser = await getSession()
+      dispatch(setUser({currentUser}))
+      dispatch(setOrbisObject(orbis))
+      console.log("conneted user", currentUser )
+   }
          
   useEffect(() => {
       

@@ -12,7 +12,7 @@ import {createSlice} from '@reduxjs/toolkit'
     reducers : {
         setUser: (state, action) => {
             state.user = action.payload
-            if(action.payload.mySession.details){
+            if(action.payload.currentUser.details){
              state.isAuthenticated = true
             }
         },

@@ -1,6 +1,7 @@
 // @ts-nocheck
 import {useState} from 'react'
-import {Orbis} from '@orbisclub/orbis-sdk'
+import { useSelector } from 'react-redux'
+
   
   const useCreatePost = () =>  {
     const [isCreating, setisCreating] = useState(false)
@@ -8,8 +9,9 @@ import {Orbis} from '@orbisclub/orbis-sdk'
      const [isError, setisError] = useState(false)
      const [isCreated, setisCreated] = useState(false)
    
+     
+      const {orbis} = useSelector(state => state.user)
 
-    let orbis = new Orbis();
     
    const  createPost = async (postMetadata) =>  {
     try{
