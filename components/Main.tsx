@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react'
-import { AiOutlineReload } from 'react-icons/ai'
+import { AiOutlinePlus, AiOutlineReload } from 'react-icons/ai'
 import CreatePost from './CreatePost'
 import Post from './Post'
 import TestComponent from './TestComponent'
@@ -18,6 +18,11 @@ export default function Main({posts, postsError}) {
            <AiOutlineReload className='cursor-pointer text-gray-500 w-6 h-6'  />
         </div>
 
+        <div className='bg-white w-12 h-12 rounded-full flex justify-center items-center z-10 border border-purple-600 cursor-pointer
+          absolute bottom-28 right-6 sm:hidden
+        '>
+          <AiOutlinePlus className='w-9 h-9 text-purple-700'  />
+        </div>
           <CreatePost  />
            {posts?.map((post, i) => {
 

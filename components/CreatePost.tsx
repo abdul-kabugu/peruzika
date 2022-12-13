@@ -61,7 +61,7 @@ export default function CreatePost() {
   
     
   return (
-    <div className='border-b-2 border-gray-200 shadow-sm py-2 px-4'>
+    <div className='border-b-2 border-gray-200 shadow-sm py-2 px-4 xs:hidden sm:block'>
       <div className='w-[100%] flex gap-4 justify-between '>
          <div   className='ring-2 ring-purple-500 xs:w-9 xs:h-9 sm:w-10 h-10 md:w-12 md:h-12 flex items-center justify-center
            rounded-full
