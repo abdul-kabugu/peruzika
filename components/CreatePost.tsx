@@ -8,6 +8,7 @@ import { useCreatePost, useDisplayImage, useUploadMedia } from '../hooks/orbis-r
 
 import {Orbis} from '@orbisclub/orbis-sdk'
 import { useSelector } from 'react-redux';
+import { CircleLoader } from 'react-spinners';
 export default function CreatePost() {
     const [postTxt, setpostTxt] = useState("")
    // const orbis = new Orbis()
@@ -41,30 +42,22 @@ export default function CreatePost() {
           console.log("the  reyrned  posts ", data)
           settheData(data)
        }
+
     const postMetadata = {
       body : postTxt, 
       media : [uploadedFile],
-      context : "peruzi100",
+      context : "peruzi10",
       tags :[ {
         slug : "peruzi testing",
         title : 'peruzi testing'
       }],
     }
      
-    
-    const  handleCreatingPost = async () => {
-       try{
-       // await uploadFile(postFile)
-         const thePostRef = await createPost(postMetadata)
-         alert("congrat", thePostRef)
-         console.log('created post refrences ', thePostRef)
-       }catch (error){
-        alert(error)
-       }
-       
-       
-    }
-   
+      const  handleCreatingPost = async () => {
+      await uploadFile(postFile)
+        const thePostRef = await createPost(postMetadata)
+     }
+      
       const  handleCreatePost2 = async () => {
          
           let res = await orbis.createPost({  body: "hellow  world"})
@@ -143,28 +136,7 @@ export default function CreatePost() {
             <button className='bg-purple-500 py-1 rounded-lg font-semibold text-white px-5' onClick={() => handleCreatingPost()} >Post</button>
          </div>
       </div>
-    
-     <button className='py-3 px-4 bg-yellow-50' onClick={fetchPosts}>fetch  posts</button>
-     <button className='' onClick={ isAuthenticated }>get user</button>
-     {theData &&
-     <div>
-      <h3>data testing</h3>
-        {theData?.map((post, i) => {
-
-          return(
-            <duv key={i} >
-            <h1>{post.content.body}</h1>
-             {post.content?.media.map((med, i) => {
-
-              return(
-                <Image key={i} src={med.url}  width={100} height={100} />
-              )
-             })}  
-             </duv>
-          )
-        })}
-     </div>
-     }
+       {isCreating   && <CircleLoader  /> }
     </div>
   )
 }

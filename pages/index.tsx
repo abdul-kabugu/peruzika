@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {setUser, setOrbisObject} from '../redux/userSlice'
 
 
-export default function Home() {
+export default function Home({posts, PostsError}) {
   
     const orbis = new Orbis()
    
@@ -38,7 +38,7 @@ export default function Home() {
       <TopNav   />
         <div className='flex gap-1 lg:px-5 lg:justify-center md:justify-center  sm:justify-center xl:justify-center '>
             <Sidebar />
-             <Main />
+             <Main posts = {posts}  postsError = {PostsError} />
               <TrendingBar />
         </div>
        
@@ -46,3 +46,17 @@ export default function Home() {
     </div>
   )
 }
+
+  export  async function getServerSideProps() {
+    const orbis = new Orbis()
+    let { data, error } = await orbis.getPosts({
+      context : "peruzi10"
+    });
+
+    return {
+      props : {
+        posts : data,
+        PostsError : error
+      }
+    }
+  }

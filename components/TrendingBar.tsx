@@ -11,7 +11,7 @@ export default function TrendingBar() {
      isSearchActive ? setisSearchActive(false) : setisSearchActive(true)
   }
   return (
-    <div className=' xs:hidden lg:block xl:w-[350px]  w-[315px] border-x-2 border-cyan-600  h-screen px-2
+    <div className=' xs:hidden lg:block xl:w-[350px]  w-[315px]  h-screen px-2
       overflow-y-scroll hide-scrollbar
     '>
      <div className={`border-2 ${isSearchActive && "border-purple-700"} border-gray-300  mt-3 pt-2 flex items-center gap-1 px-2 rounded-lg`}

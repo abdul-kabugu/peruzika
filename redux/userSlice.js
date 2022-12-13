@@ -11,7 +11,7 @@ import {createSlice} from '@reduxjs/toolkit'
     initialState,
     reducers : {
         setUser: (state, action) => {
-            state.user = action.payload
+            state.user = action.payload.currentUser
             if(action.payload.currentUser.details){
              state.isAuthenticated = true
             }
