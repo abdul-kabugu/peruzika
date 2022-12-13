@@ -2,7 +2,8 @@
 
 import {useState} from 'react'
 import { AiOutlineClose, AiOutlineComment, AiOutlineLike } from 'react-icons/ai'
-import { HiOutlineShare } from 'react-icons/hi'
+import { BiUserPlus } from 'react-icons/bi'
+import { HiOutlineDotsHorizontal, HiOutlineShare } from 'react-icons/hi'
 import { IoMdStarOutline } from 'react-icons/io'
 import {TwitterIcon, TwitterShareButton, fac} from 'react-share'
 import FacebookIcon from 'react-share/lib/FacebookIcon'
@@ -58,7 +59,15 @@ export default function PostCardFooter({post}) {
            </div>
            </div>
          }
-        <div className='flex items-center gap-4 py-2 px-4 justify-between'>
+        <div className='flex items-center gap-4 py-2 px-4 justify-between sm:hidden'>
+            <div className='flex gap-2 items-center'>
+              <div className='w-7 h-7 border border-purple-500 cursor-pointer rounded-full flex items-center justify-center'>
+                <img   src='https://nftcoders.com/avatar/avatar-cool.svg'  alt='logo'
+                  className='rounded-full w-6 h-6 '
+                />
+              </div>
+                <BiUserPlus className='text-gray-500 cursor-pointer' />
+            </div>
             <div className='flex gap-2 items-center cursor-pointer' onClick={toggleIsShareModal}>
          <HiOutlineShare className='w-5 h-5 cursor-pointer'  />
           <p className='xs:hidden sm:block'>Share</p>
@@ -86,7 +95,9 @@ export default function PostCardFooter({post}) {
         }
           
          </div>
-
+        <div className='sm:hidden'>
+        <HiOutlineDotsHorizontal className='cursor-pointer'  />
+        </div>
       </div> 
         
     </div>

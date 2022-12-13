@@ -57,34 +57,22 @@ export default function CreatePost() {
       await uploadFile(postFile)
         const thePostRef = await createPost(postMetadata)
      }
-      
-      const  handleCreatePost2 = async () => {
-         
-          let res = await orbis.createPost({  body: "hellow  world"})
-          console.log("the res", res)
-       
-      }
-
-      const isAuthenticated = async () => {
-        let res = await orbis.isConnected();
-        console.log("connected user", res)
-      }
-
-      console.log("the orbis project", orbis)
+   
+  
     
   return (
     <div className='border-b-2 border-gray-200 shadow-sm py-2 px-4'>
       <div className='w-[100%] flex gap-4 justify-between '>
-         <div   className='ring-2 ring-purple-500 w-[50px] h-[50px] flex items-center justify-center
+         <div   className='ring-2 ring-purple-500 xs:w-9 xs:h-9 sm:w-10 h-10 md:w-12 md:h-12 flex items-center justify-center
            rounded-full
          '>
-         <Image   src='/img/peruzi.png' width={40}  height={40} alt="user" 
-             
+         <img   src='/img/peruzi.png'  alt="user" 
+           className=' xs:w-7 xs:h-7 sm:w-8 sm:h-8 md:w-10 md:h-10'  
          />
          </div>
          <div className='w-[90%]' onClick={toggleIsAddMedia}>
      <TextareaAutosize  
-       className=' resize-none w-[100%] placeholder:text-xl py-1 px-2 placeholder:font-serif
+       className=' resize-none w-[100%] md:placeholder:text-xl xs:placeholder:text-sm sm:placeholder:text-lg py-1 px-2 placeholder:font-serif
          focus:outline-none
        
        '
@@ -101,8 +89,8 @@ export default function CreatePost() {
           <div className='w-[100%] h-[130px] custom-border mt-4
             p-4 rounded-xl flex items-center justify-center gap-4 cursor-pointer 
           ' onClick={handleOpenInput}>
-            <FiPlus className='w-9 h-9 text-purple-700' />
-              <h4 className='text-xl font-serif text-purple-900' >Add a picture or  video</h4>
+            <FiPlus className='md:w-9 md:h-9 text-purple-700 xs:w-7 xs:h-7' />
+              <h4 className='md:text-xl font-serif text-purple-900 xs:text-lg' >Add a picture or  video</h4>
      <input   type="file" 
       onChange={e => {setpostFile(e.target.files[0]) 
         uploader(e)
@@ -130,10 +118,10 @@ export default function CreatePost() {
       
      } </div> : ""}
       <div className='flex justify-between items-center py-1 mt-2 px-3  '>
-        <BiHash className='text-purple-800 w-8 h-8 cursor-pointer' />
+        <BiHash className='text-purple-800 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 cursor-pointer' />
          <div className='flex gap-4 py-3 items-center '>
            <p>{postTxt.length} / 300</p>
-            <button className='bg-purple-500 py-1 rounded-lg font-semibold text-white px-5' onClick={() => handleCreatingPost()} >Post</button>
+            <button className='bg-purple-500 py-1 xs:px-3  rounded-lg font-semibold text-white sm:px-5 sm:py-1' onClick={() => handleCreatingPost()} >Post</button>
          </div>
       </div>
        {isCreating   && <CircleLoader  /> }

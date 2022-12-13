@@ -15,7 +15,7 @@ export default function PostHeader({post}) {
   const date = new Date(post.timestamp * 1000);
   const humanReadableString = date.toLocaleString("en-US", dateOptions);
   return (
-    <div className='flex gap-1 justify-between items-center  mb-2 py-2 px-3 '>
+    <div className='flex gap-1 justify-between items-center  mb-2 py-2 px-3 xs:hidden sm:flex '>
       <div className='flex gap-3'>
         <div>
           {post?.creator_details?.profile ?

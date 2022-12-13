@@ -32,7 +32,7 @@ export default function TopNav() {
 
       console.log("the  error", error)
   return (
-    <div className='border-y-2  flex gap-8 justify-between bg-gray-100  md:hidden px-6 py-1 fixed top-0 w-[100vw] z-10'>
+    <div className='border-y-2  flex gap-8 justify-between bg-white  md:hidden px-6 py-1 fixed top-0 w-[100vw] z-10'>
        <>
        <div className='flex items-center gap-5'>
         <Image src="/img/peruzi.png"  width={28}  height={28}  alt="logo"  />
@@ -51,7 +51,7 @@ export default function TopNav() {
             <AiOutlineSearch className='w-8 h-8 cursor-pointer text-gray-400' />
          </div>
          </>
-          <button className='bg-purple-500 xs:py-2 xs:px-8 rounded-lg px-5 text-white font-semibold'
+          <button className='bg-purple-500 xs:py-1 xs:px-4 rounded-lg sm:px-5 text-white font-semibold'
             onClick={toggleConnectWallet}
           >Log in</button>
            { isConnectWallet &&
