@@ -17,7 +17,7 @@ export default function Post({post}) {
                 {post?.content?.media?.map((img, i) => {
                   const imgUrl = img.url.replace("ipfs://", `${img.gateway}`)
                   return(
-                  <img  src={imgUrl} alt='picture ' 
+                  <img key={i} src={imgUrl} alt='picture ' 
                     className="w-[100%] xs:h-[310px] md:h-[386px] object-cover rounded-md "
                   />
                   )
