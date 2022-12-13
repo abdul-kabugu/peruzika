@@ -61,12 +61,12 @@ export default function PostCardFooter({post}) {
         <div className='flex items-center gap-4 py-2 px-4 justify-between'>
             <div className='flex gap-2 items-center cursor-pointer' onClick={toggleIsShareModal}>
          <HiOutlineShare className='w-5 h-5 cursor-pointer'  />
-          <p>Share</p>
+          <p className='xs:hidden sm:block'>Share</p>
          </div>
          <div className='flex gap-2 items-center'>
          <AiOutlineComment className='w-5 h-5 cursor-pointer' />
          {post?.count_replies ? <p>{post?.count_replies }</p> :
-          <p>comments</p>
+          <p className='xs:hidden sm:block'>comments</p>
           }
          </div>
 
@@ -74,7 +74,7 @@ export default function PostCardFooter({post}) {
             <IoMdStarOutline className='w-5 h-5 cursor-pointer' />
           {post?.count_haha ? 
           <p>{post?.count_haha}</p> :
-           <p>Favourite</p>
+           <p className='xs:hidden sm:block'>Favourite</p>
         }
          </div>
 
@@ -82,7 +82,7 @@ export default function PostCardFooter({post}) {
           <AiOutlineLike className='w-5 h-5 cursor-pointer' />
           {post?.count_likes ? 
           <p>{post?.count_likes}</p> :
-          <p>likes</p>
+          <p className='xs:hidden sm:block'>likes</p>
         }
           
          </div>
