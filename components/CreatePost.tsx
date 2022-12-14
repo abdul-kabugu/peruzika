@@ -5,7 +5,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { FiPlus } from 'react-icons/fi';
 import { BiHash } from 'react-icons/bi';
 import { useCreatePost, useDisplayImage, useUploadMedia } from '../hooks/orbis-react';
-
+import {PINATA_GATEWAY, PINATA_KEY, PINATA_SECRET} from '../assets/constants'
 import {Orbis} from '@orbisclub/orbis-sdk'
 import { useSelector } from 'react-redux';
 import { CircleLoader } from 'react-spinners';
@@ -25,6 +25,8 @@ export default function CreatePost() {
          imgRef.current.click()
       }
       
+      
+          
        //USE_DISPLAY  MESSAGE HOOK
       const { result, uploader } = useDisplayImage();
 
@@ -33,15 +35,8 @@ export default function CreatePost() {
      //  USE_UPLOAD  MEDIA HOOK
      const {uploadFile, isUploading, isUploadingError, uploadingError, uploadedFile} = useUploadMedia()
       
-     console.log('this  is  uploaded  file ', uploadedFile)
+    
 
-       const fetchPosts =  async () => {
-        let { data, error } = await orbis.getPosts({
-          context : "peruzi100"
-        });
-          console.log("the  reyrned  posts ", data)
-          settheData(data)
-       }
 
     const postMetadata = {
       body : postTxt, 
@@ -54,8 +49,18 @@ export default function CreatePost() {
     }
      
       const  handleCreatingPost = async () => {
-      await uploadFile(postFile)
-        const thePostRef = await createPost(postMetadata)
+         //const theFile =  await uploadFile(postFile)
+         let res = await orbis.uploadMedia(postFile);
+         console.log("the file", res)
+        const thePostRef = await createPost({
+          body : postTxt, 
+          media : [res.result],
+          context : "peruzi10",
+          tags :[ {
+            slug : "peruzi testing",
+            title : 'peruzi testing'
+          }],
+        })
      }
    
   

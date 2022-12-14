@@ -6,11 +6,17 @@ import {Orbis} from '@orbisclub/orbis-sdk'
 import {useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {setUser, setOrbisObject} from '../redux/userSlice'
-
+import {PINATA_GATEWAY, PINATA_KEY, PINATA_SECRET} from '../assets/constants'
 
 export default function Home({posts, PostsError}) {
   
-    const orbis = new Orbis()
+    const orbis = new Orbis({
+      PINATA_GATEWAY: PINATA_GATEWAY,
+      PINATA_API_KEY: PINATA_KEY,
+      PINATA_SECRET_API_KEY: PINATA_SECRET
+    }
+     
+    )
    
   
   const user = useSelector(state => state.user)
