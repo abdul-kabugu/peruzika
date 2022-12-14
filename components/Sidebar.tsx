@@ -83,7 +83,7 @@ export default function Sidebar() {
           return(
             <Link key={i} href={link.to} >
                 <div className=''>
-                  <link.icon className='w-8 h-8' />
+                  <link.icon className='w-8 h-8 xs:w-6 xs:h-6' />
                 </div>
             </Link>
           )

@@ -8,7 +8,7 @@ import TestComponent from './TestComponent'
 export default function Main({posts, postsError}) {
 
   return (
-    <div className=' xs:w-[100vw] h-screen sm:w-[470px] md:w-[500px] w-[600px] xl:w-[650px]
+    <div className=' xs:w-[100vw] xs:h-screen sm:h-screen  sm:w-[470px] md:w-[500px] w-[600px] xl:w-[650px]
       overflow-y-scroll hide-scrollbar
     '>
         <div className='flex justify-between items-center py-3 px-3 mb-3
