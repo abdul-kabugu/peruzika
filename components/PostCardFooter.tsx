@@ -66,7 +66,7 @@ export default function PostCardFooter({post}) {
                   className='rounded-full w-6 h-6 '
                 />
               </div>
-                <BiUserPlus className='text-gray-500 cursor-pointer' />
+                <BiUserPlus className='text-gray-500 cursor-pointer w-4 h-4' />
             </div>
             <div className='flex gap-2 items-center cursor-pointer' onClick={toggleIsShareModal}>
          <HiOutlineShare className='w-5 h-5 cursor-pointer'  />
