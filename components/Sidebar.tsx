@@ -76,7 +76,7 @@ export default function Sidebar() {
         
             
     </div>
-      <div className='fixed mt-20 top-auto bottom-0 sm:hidden w-[100vw] bg-white z-10 rounded-t-xl py-3'>
+      <div className='fixed  top-auto bottom-0 sm:hidden w-[100vw] bg-white z-10 rounded-t-xl py-3'>
          <div className='flex gap-4 justify-between px-6'>
          {Links.map((link, i) => {
 
