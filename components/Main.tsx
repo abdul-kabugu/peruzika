@@ -19,7 +19,7 @@ export default function Main({posts, postsError}) {
         </div>
 
         <div className='bg-white w-12 h-12 rounded-full flex justify-center items-center z-10 border border-purple-600 cursor-pointer
-          absolute bottom-28 right-6 sm:hidden
+          absolute bottom-10 right-6 sm:hidden
         '>
           <AiOutlinePlus className='w-9 h-9 text-purple-700'  />
         </div>
