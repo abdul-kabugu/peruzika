@@ -40,7 +40,7 @@ export default function Sidebar() {
              })}
               <div className='flex gap-2 items-center bg-purple-600 w-[180px] py-3 px-5 rounded-lg text-white justify-center cursor-pointer'>
       <AiOutlineUpload size={25} />
-        <button className='capitalize text-xl font-semibold'> post</button>
+        <button className='capitalize text-xl font-semibold'> <Link href='/create-post'>Post</Link> </button>
         </div>
              </>
           )

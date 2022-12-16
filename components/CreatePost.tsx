@@ -81,6 +81,7 @@ export default function CreatePost() {
          focus:outline-none
        
        '
+        maxLength={300}
        minRows={1}
        placeholder="Share something  to the  world"
        value={postTxt}

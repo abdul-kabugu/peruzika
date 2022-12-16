@@ -4,9 +4,13 @@ import { AiOutlinePlus, AiOutlineReload } from 'react-icons/ai'
 import CreatePost from './CreatePost'
 import Post from './Post'
 import TestComponent from './TestComponent'
-
+import {useRouter} from "next/router"
+ 
 export default function Main({posts, postsError}) {
-
+  const router = useRouter()
+  const handleNavigateTcreatePost = () => {
+     router.push("/create-post")
+  }
   return (
     <div className=' xs:w-[100vw] xs:h-screen sm:h-screen  sm:w-[470px] md:w-[500px] w-[600px] xl:w-[650px]
       overflow-y-scroll hide-scrollbar mb-7
@@ -19,9 +23,9 @@ export default function Main({posts, postsError}) {
         </div>
 
         <div className='bg-white w-12 h-12 rounded-full flex justify-center items-center z-10 border border-purple-600 cursor-pointer
-          absolute bottom-10 right-6 sm:hidden
+          absolute bottom-16 right-6 sm:hidden
         '>
-          <AiOutlinePlus className='w-9 h-9 text-purple-700'  />
+          <AiOutlinePlus className='w-9 h-9 text-purple-700' onClick = {handleNavigateTcreatePost}  />
         </div>
           <CreatePost  />
            {posts?.map((post, i) => {
