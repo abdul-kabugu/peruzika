@@ -40,7 +40,7 @@ export default function CreateFullPost() {
     setpostTags([...postTags.filter(tags => postTags.indexOf(tags) !== index)])
    }
   return (
-    <div className='w-[100%] h-screen border  py-3 xs:px-1 sm:px-2 md:px-3'>
+    <div className='w-[100%] h-screen border  '>
        <div className='flex justify-between  xs:flex-col '>
          <div>
         <input type="text" value={postTitle} onChange = {e => setpostTitle(e.target.value)}
