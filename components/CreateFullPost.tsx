@@ -66,7 +66,7 @@ export default function CreateFullPost() {
                   
                      
                         <div key={i} className='flex items-center py-1 xs:px-2 xs:min-w-[50px] rounded-lg bg-purple-600
-                          text-white flex-wrap gap-2 xs:mr-2
+                          text-white flex-wrap gap-2 xs:mr-2 xs:mb-2
                         '>
                           <p>{tag.title}</p>
                            <AiOutlineClose className='cursor-pointer'
