@@ -40,7 +40,7 @@ export default function CreateFullPost() {
     setpostTags([...postTags.filter(tags => postTags.indexOf(tags) !== index)])
    }
   return (
-    <div className='w-[100%] h-screen border  '>
+    <div className='w-[100%] h-screen border '>
        <div className='flex justify-between  xs:flex-col '>
          <div>
         <input type="text" value={postTitle} onChange = {e => setpostTitle(e.target.value)}
@@ -66,7 +66,7 @@ export default function CreateFullPost() {
                   
                      
                         <div key={i} className='flex items-center py-1 xs:px-2 xs:min-w-[50px] rounded-lg bg-purple-600
-                          text-white flex-wrap gap-2
+                          text-white flex-wrap gap-2 xs:mr-2
                         '>
                           <p>{tag.title}</p>
                            <AiOutlineClose className='cursor-pointer'
