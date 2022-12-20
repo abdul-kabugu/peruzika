@@ -6,7 +6,7 @@ import { setUser, setOrbisObject } from '../../redux/userSlice'
 import {PINATA_GATEWAY, PINATA_KEY, PINATA_SECRET} from '../../assets/constants'
 import { Sidebar, TopNav, TrendingBar } from '../../components'
 import ProfileMain from '../../components/ProfileMain'
-export default function index() {
+export default function UserProfile() {
     const [userInfo, setuserInfo] = useState()
     const [isError, setisError] = useState()
     const [userPosts, setuserPosts] = useState()
