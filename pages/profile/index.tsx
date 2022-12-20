@@ -38,11 +38,9 @@ export default function UserProfile() {
   useEffect(() => {
       
     getConnectedUser()  
-    
-  }, [isAuthenticated])
+    console.log("the user ", user)
 
-    useEffect(() => {
-      let orbis = new Orbis();
+    let orbis = new Orbis();
       const fetchUserData = async () =>  {
        
         let { data, error } = await orbis.getProfile(user.did);
@@ -52,6 +50,20 @@ export default function UserProfile() {
       }
     
       fetchUserData()
+    
+  }, [isAuthenticated])
+
+    useEffect(() => {
+      let orbis = new Orbis();
+     /* const fetchUserData = async () =>  {
+       
+        let { data, error } = await orbis.getProfile(user.did);
+         setuserInfo(data)
+         setisError(error)
+
+      }
+    
+      fetchUserData()*/
 
        const fetchUserPosts = async () =>  {
         setisUserPostsLoading(true)
@@ -60,7 +72,8 @@ export default function UserProfile() {
           did : user.did,
           only_master : true
         });
-          setisUserInfoLoading(false)
+          
+          setisUserPostsLoading(false)
           setuserPosts(data)
           setuserPostsError(error)
        }
@@ -89,5 +102,4 @@ export default function UserProfile() {
        userError : error
     }
   }
-}
-*/
+}*/
