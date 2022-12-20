@@ -36,8 +36,8 @@ export default function TokenGateKeys({toggleIsTokenGateModal}) {
         <h1 className='text-xl font-semibold text-center py-1 mb-1'> Membership settings</h1>
         <div className='my-2'>
          <p className='text-sm font-sans text-gray-500 '>Link  your membership token to your profile  so you  can token  gate  your content  based  on  this membership 
-           if you  haven't  created  your  membership  click  here 👉 
-             <a href='https://www.flocker.app/' target="_blank" > <FiExternalLink className='w-6 h-6 text-blue-800 cursor-pointer inline-block' /> </a> to  create  </p>
+           if you  havent  created  your  membership  click  here 👉 
+             <a href='https://www.flocker.app/' target="_blank" rel="noreferrer" > <FiExternalLink className='w-6 h-6 text-blue-800 cursor-pointer inline-block' /> </a> to  create  </p>
         
          </div>
          <div>
