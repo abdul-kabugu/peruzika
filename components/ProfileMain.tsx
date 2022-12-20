@@ -4,14 +4,18 @@ import { AiOutlineSetting } from 'react-icons/ai'
 import { BiArrowBack, BiLeftArrow } from 'react-icons/bi'
 import { FiSettings } from 'react-icons/fi'
 import { HiOutlinePencilAlt } from 'react-icons/hi'
+import { useSelector } from 'react-redux'
 import EditProfile from './EditProfile'
 import Modal from './Modal'
 import ProfileSettingsModal from './ProfileSettingsModal'
 import TokenGateKeys from './TokenGateKeys'
+import UserStats from './UserStats'
 
-export default function ProfileMain() {
+
+export default function ProfileMain({userInfo, userPosts}) {
 const [isEditProfile,setisEditProfile] = useState(false)
 const [isTokenGateModal, setisTokenGateModal] = useState(false)
+const {user, orbis, isAuthenticated} = useSelector(state => state.user)
 
    
 const toggleIsEditProfile = ( ) =>  {
@@ -53,7 +57,7 @@ const toggleIsEditProfile = ( ) =>  {
               </div>
             </div>
             </div>
-
+              <UserStats  user = {userInfo} userPosts = {userPosts} />
            
        </div>
            {isEditProfile  &&

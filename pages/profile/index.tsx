@@ -72,7 +72,7 @@ export default function index() {
       <TopNav  />
      <div className='flex sm:justify-center  hide-scrollbar '>
         <Sidebar   />
-         <ProfileMain  />
+         <ProfileMain userInfo = {userInfo} userPosts = {userPosts} />
           <TrendingBar />
           </div>
     </div>
