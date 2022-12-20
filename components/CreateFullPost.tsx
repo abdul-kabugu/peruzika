@@ -5,6 +5,7 @@ import { RiImageAddLine } from 'react-icons/ri';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useDisplayImage } from '../hooks/orbis-react';
 import Modal from './Modal';
+import PostSettingsModal from './PostSettingsModal';
 
 export default function CreateFullPost() {
   const [postTitle, setpostTitle] = useState("")
@@ -108,7 +109,7 @@ export default function CreateFullPost() {
           </div>
        </div>
        {isPostStting &&
-       <Modal>
+       <PostSettingsModal>
         <div>
          <h1 className='text-2xl text-center font-semibold py-2'>Post settings</h1>
    <div>
@@ -192,7 +193,7 @@ export default function CreateFullPost() {
              <button className=' bg-purple-600 text-white w-2/5 py-2 px-4 rounded-lg ' onClick={toggleIsSettingsModal}>Save</button>
           </div>
           </div>
-       </Modal>
+          </PostSettingsModal>
        
        } 
     </div>

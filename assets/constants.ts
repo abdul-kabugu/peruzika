@@ -9,7 +9,7 @@ export const Links = [
     { name : "News Channel",  to : '/channels', icon : RiHashtag },
     { name : "Live ",  to : '/live', icon : RiLiveLine },
     { name : "Messages",  to : '/messages', icon : BiMessageSquareDetail},
-    { name : "Me",  to : '/me', icon : FiUser },
+    { name : "Me",  to : '/profile', icon : FiUser },
     
     
 ]

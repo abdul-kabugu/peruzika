@@ -32,7 +32,7 @@ export default function Home({posts, PostsError}) {
       dispatch(setOrbisObject(orbis))
       console.log("conneted user", currentUser )
    }
-         
+      // getConnectedUser()  
   useEffect(() => {
       
     getConnectedUser()  
