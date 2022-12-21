@@ -102,18 +102,20 @@ export default function CreateFullPost() {
             media : [media.result],
             data : {
               purchaseUrl : purchaseUrl,
-            },
-            encryptionRules : {
-              type : "token-gated",
-              chain : rulesChain,
-              contractType : tokenType,
-              contractAddress : tokenAddress,
-              minTokenBalance : tokenBalance,
-
             }
+           
 
           }
-        let res = await orbis.createPost(postBody)
+
+         const  encryptionRules = {
+            type : "token-gated",
+            chain : rulesChain,
+            contractType : tokenType,
+            contractAddress :  tokenAddress,
+            minTokenBalance : tokenBalance,
+
+          }
+        let res = await orbis.createPost(postBody, encryptionRules)
         setIsPublishing(false)
        
       }
@@ -256,13 +258,13 @@ export default function CreateFullPost() {
         </select>
 
         <h4 className='capitalize  font-semibold mt-2'>token address</h4>
-        <select  onChange = {e => settokenAddress(e.target.value)} 
+        <select value={tokenAddress} onChange = {e => settokenAddress(e.target.value)} 
           className="w-[100%] py-2 px-3 focus:outline-none border border-purple-300 rounded-md"
         >
         
 
 {userData?.details?.profile.data.peruziMemberships.map((item, i) => {
-
+  
 return(
   <option key={i} value={item.tokenAddress}>{item.packageName }</option>
 )

@@ -31,12 +31,13 @@ export default function PostHeader({post}) {
             }
           </div>
         )
-      }else {
+      }else  {
+        return(
         <div className='flex items-center gap-2'>
            <button className='py-1 px-3 border border-purple-500 rounded-lg'>Follow </button>
               <HiOutlineDotsHorizontal className='cursor-pointer' />
         </div>
-      }
+      )}
     }
 
   const dateOptions = {
