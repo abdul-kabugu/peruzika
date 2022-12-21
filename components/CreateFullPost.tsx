@@ -264,7 +264,7 @@ export default function CreateFullPost() {
 {userData?.details?.profile.data.peruziMemberships.map((item, i) => {
 
 return(
-  <option value={item.tokenAddress}>{item.packageName }</option>
+  <option key={i} value={item.tokenAddress}>{item.packageName }</option>
 )
 })}
         </select>
