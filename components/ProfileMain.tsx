@@ -7,8 +7,10 @@ import { HiOutlinePencilAlt } from 'react-icons/hi'
 import { useSelector } from 'react-redux'
 import EditProfile from './EditProfile'
 import Modal from './Modal'
+import Post from './Post'
 import ProfileSettingsModal from './ProfileSettingsModal'
 import TokenGateKeys from './TokenGateKeys'
+import UserBanner from './UserBanner'
 import UserStats from './UserStats'
 
 
@@ -28,7 +30,7 @@ const toggleIsEditProfile = ( ) =>  {
   return (
     <div className='xs:w-[100vw] xs:h-screen sm:h-screen  sm:w-[470px] md:w-[500px] w-[600px] xl:w-[650px]
     overflow-y-scroll xs:mb-[58px] hide-scrollbar sm:mb-0 border-x border-red-800 '>
-       <div className=' xs:mt-[55px] md:mt-1'>
+      {/* <div className=' xs:mt-[55px] md:mt-1'>
        <div className='flex justify-between items-center py-4 px-4 z-10 bg-black/40 fixed top-0
         xs:w-[100%] sm:w-[470px] md:w-[500px] w-[600px] xl:w-[650px]  xs:top-[50px] md:top-0
         
@@ -59,7 +61,10 @@ const toggleIsEditProfile = ( ) =>  {
             </div>
               <UserStats  user = {userInfo} userPosts = {userPosts} />
            
-       </div>
+  </div>*/}
+   <UserBanner  toggleIsTokenGateModal ={toggleIsTokenGateModal} toggleIsEditProfile = {toggleIsEditProfile } 
+     userInfo = {userInfo} userPosts = {userPosts} 
+   />
            {isEditProfile  &&
              <ProfileSettingsModal>
               <EditProfile   toggleIsEditProfile = {toggleIsEditProfile}
@@ -73,7 +78,14 @@ const toggleIsEditProfile = ( ) =>  {
              <TokenGateKeys toggleIsTokenGateModal ={toggleIsTokenGateModal} />
              </ProfileSettingsModal>
             }
-         <div className='w-[100%] h-screen border border-blue-700'></div>
+
+              {userPosts?.map((post, i) =>  {
+
+                return(
+                  <Post  key={i} post = {post} />
+                )
+              })}
+        
     </div>
   )
 }

@@ -14,12 +14,13 @@ export default function TokenGateKeys({toggleIsTokenGateModal}) {
       const handleAddMembership = async () => {
          setisUpdatingProfile(true)
           const userPackages = user.details?.profile?.data?.peruziMemberships
+            console.log("user packages", userPackages)
          let res = await orbis.updateProfile({
           pfp: user.details?.profile?.pfp,
           username : user.details?.profile?.username,
           description  : user.details?.profile?.description,
             data : {
-                peruziMemberships : [...userPackages,
+                peruziMemberships : [...userPackages, 
                     {
                         packageName : tokenName,
                         tokenAddress : tokenAddress,

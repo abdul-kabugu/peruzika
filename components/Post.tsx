@@ -15,7 +15,7 @@ export default function Post({post}) {
             <p className="font-sans text-lg">{post?.content?.body}</p>
              <div className="bg-gray-400 w-[100%] xs:h-[210px] sm:h-[310] md:h-[326px] lg:h-[386px]  rounded-md ">
                 {post?.content?.media?.map((img, i) => {
-                  const imgUrl = img.url.replace("ipfs://", `${img.gateway}`)
+                  const imgUrl = img.url?.replace("ipfs://", `${img.gateway}`)
                   return(
                   <img key={i} src={imgUrl} alt='picture ' 
                     className="w-[100%] xs:h-[210px] sm:h-[310px]  max-h-[100%]  lg:h-[386px] object-cover rounded-md "

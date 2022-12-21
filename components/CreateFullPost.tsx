@@ -1,11 +1,16 @@
 // @ts-nocheck
-import {useState, useRef} from 'react'
+import {useState, useRef, useEffect} from 'react'
 import { AiOutlineClose, AiOutlineLeft, AiOutlineSetting } from 'react-icons/ai'
 import { RiImageAddLine } from 'react-icons/ri';
+import { useSelector, useDispatch } from 'react-redux';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useDisplayImage } from '../hooks/orbis-react';
 import Modal from './Modal';
 import PostSettingsModal from './PostSettingsModal';
+import {Orbis} from '@orbisclub/orbis-sdk'
+import {PINATA_GATEWAY, PINATA_KEY, PINATA_SECRET} from '../assets/constants'
+import { setUser, setOrbisObject } from '../redux/userSlice';
+import { BiLoader } from 'react-icons/bi';
 
 export default function CreateFullPost() {
   const [postTitle, setpostTitle] = useState("")
@@ -18,9 +23,54 @@ export default function CreateFullPost() {
     const [tokenType, setTokenType] = useState("ERC721")
     const [tokenAddress, settokenAddress] = useState("")
     const [tokenBalance, settokenBalance] = useState("")
+    const [purchaseUrl, setpurchaseUrl] = useState("")
+    const [isPublishing, setIsPublishing] = useState(false)
+    
+    const [userData, setuserData] = useState()
    const {result, uploader } = useDisplayImage()
-    console.log("the selected file", coverFile)
-    console.log("the file result", result)
+   
+      const {user, orbis, isAuthenticated} = useSelector(state => state.user)
+       
+      const profileOrbis = new Orbis({
+        PINATA_GATEWAY: PINATA_GATEWAY,
+        PINATA_API_KEY: PINATA_KEY,
+        PINATA_SECRET_API_KEY: PINATA_SECRET
+    })
+    const dispatch = useDispatch()
+    const getSession = async () => {
+          const res = await profileOrbis.isConnected();
+           return res
+  }
+  
+   console.log("the  user", userData)
+   const  getConnectedUser = async () => {
+     const currentUser = await getSession()
+      dispatch(setUser({currentUser}))
+     dispatch(setOrbisObject(profileOrbis))
+      console.log("The get  session  is  re-running" )
+   }
+         
+  useEffect(() => {
+      
+    getConnectedUser()  
+    
+
+    let orbis = new Orbis();
+    const fetchUserData = async () =>  {
+      let orbis = new Orbis();
+      let { data, error } = await orbis.getProfile(user.did);
+      setuserData(data)
+     }
+
+     fetchUserData()
+    
+  }, [isAuthenticated])
+
+
+
+
+        console.log("user data", user)
+        
      const coverRef = useRef(null)
       console.log("these are post  tags", postTags)
      const  addNewTag  = (event) =>  {
@@ -40,6 +90,33 @@ export default function CreateFullPost() {
    const removeTag = (index) => {
     setpostTags([...postTags.filter(tags => postTags.indexOf(tags) !== index)])
    }
+
+      const handlePublish = async () =>  {
+        setIsPublishing(true)
+        let media = await orbis.uploadMedia(coverFile);
+          let postBody = {
+            body : postText,
+            title : postTitle,
+            context: "peruzi10",
+            tags : postTags,
+            media : [media.result],
+            data : {
+              purchaseUrl : purchaseUrl,
+            },
+            encryptionRules : {
+              type : "token-gated",
+              chain : rulesChain,
+              contractType : tokenType,
+              contractAddress : tokenAddress,
+              minTokenBalance : tokenBalance,
+
+            }
+
+          }
+        let res = await orbis.createPost(postBody)
+        setIsPublishing(false)
+       
+      }
   return (
     <div className='w-[100%] h-screen border '>
        <div className='flex justify-between  xs:flex-col '>
@@ -98,7 +175,9 @@ export default function CreateFullPost() {
                    <p className='font-semibold text-lg'>Post</p>
              </div>
             <div className='flex xs:gap-4 items-center'>
-              <button className='py-1 px-2 border border-gray-300 rounded-sm '>Publish</button>
+              <button className='py-1 px-2 border border-gray-300 rounded-sm ' onClick={handlePublish}>
+                 {isPublishing ? <BiLoader size={9}  /> : "Publish"}
+              </button>
                <div className='rounded-2xl flex items-center justify-center w-10 h-9 border border-gray-300 cursor-pointer'
                  onClick={toggleIsSettingsModal}
                >
@@ -173,19 +252,30 @@ export default function CreateFullPost() {
           <option value="ERC20">ERC20 Token</option>
           <option value="ERC721">ERC721 Token</option>
           <option value="ERC1155">ERC1155 Token</option>
+          
         </select>
 
         <h4 className='capitalize  font-semibold mt-2'>token address</h4>
-        <select value={tokenType} onChange = {e => setTokenType(e.target.value)} 
+        <select  onChange = {e => settokenAddress(e.target.value)} 
           className="w-[100%] py-2 px-3 focus:outline-none border border-purple-300 rounded-md"
         >
-          <option value="ERC20">VIP</option>
-          <option value="ERC721">VVI</option>
-          <option value="ERC1155">Chiep</option>
+        
+
+{userData?.details?.profile.data.peruziMemberships.map((item, i) => {
+
+return(
+  <option value={item.tokenAddress}>{item.packageName }</option>
+)
+})}
         </select>
         <h4 className='capitalize  font-semibold mt-2'>Required token balance</h4>
          <input  type="number" value={tokenBalance} onChange = {e => settokenBalance(e.target.value)}   
          placeholder="0.00" className='w-[100%] py-2 px-4 focus:outline-none border border-purple-300 rounded-lg'
+         />
+
+<h4 className='capitalize  font-semibold mt-2'>Purchase Url</h4>
+         <input  value={purchaseUrl} onChange = {e => setpurchaseUrl(e.target.value)}   
+         placeholder="https://flocker..." className='w-[100%] py-2 px-4 focus:outline-none border border-purple-300 rounded-lg'
          />
    </div>
           <div className='flex gap-4 justify-between mt-7 mb-4 w-[90%] items-center mx-auto'>
@@ -193,6 +283,7 @@ export default function CreateFullPost() {
              <button className=' bg-purple-600 text-white w-2/5 py-2 px-4 rounded-lg ' onClick={toggleIsSettingsModal}>Save</button>
           </div>
           </div>
+         
           </PostSettingsModal>
        
        } 

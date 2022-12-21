@@ -55,16 +55,7 @@ export default function UserProfile() {
 
     useEffect(() => {
       let orbis = new Orbis();
-     /* const fetchUserData = async () =>  {
-       
-        let { data, error } = await orbis.getProfile(user.did);
-         setuserInfo(data)
-         setisError(error)
-
-      }
-    
-      fetchUserData()*/
-
+     
        const fetchUserPosts = async () =>  {
         setisUserPostsLoading(true)
         let { data, error } = await orbis.getPosts({

@@ -6,6 +6,7 @@ import Main from "./Main";
 import Modal from "./Modal";
 import PostCardFooter from "./PostCardFooter";
 import PostSettingsModal from "./PostSettingsModal";
+import ProfileMain from "./ProfileMain";
 import ProfileSettingsModal from "./ProfileSettingsModal";
 import Sidebar from "./Sidebar";
 import TopNav from "./TopNav";
@@ -13,5 +14,5 @@ import TrendingBar from "./TrendingBar";
 
 export {
     TopNav, Sidebar, TrendingBar, Main,Modal, CreatePost, Authenticate, PostCardFooter,
-    CreateFullPost, PostSettingsModal, ProfileSettingsModal
+    CreateFullPost, PostSettingsModal, ProfileSettingsModal, ProfileMain
 }
