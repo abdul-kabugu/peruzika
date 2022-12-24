@@ -1,9 +1,18 @@
 import {createSlice} from '@reduxjs/toolkit'
+import {Orbis} from '@orbisclub/orbis-sdk'
+import {PINATA_GATEWAY, PINATA_KEY, PINATA_SECRET} from '../assets/constants'
+
+const orbis = new Orbis({
+    PINATA_GATEWAY: PINATA_GATEWAY,
+    PINATA_API_KEY: PINATA_KEY,
+    PINATA_SECRET_API_KEY: PINATA_SECRET
+  }
+  )
 
  const initialState = {
     user : {},
      isAuthenticated : false,
-     orbis : {}
+     orbis :  {}
  }
 
  const useSlice = createSlice({

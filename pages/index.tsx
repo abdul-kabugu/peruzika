@@ -3,13 +3,13 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Main, Sidebar, TopNav, TrendingBar } from '../components'
 import {Orbis} from '@orbisclub/orbis-sdk'
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {setUser, setOrbisObject} from '../redux/userSlice'
 import {PINATA_GATEWAY, PINATA_KEY, PINATA_SECRET} from '../assets/constants'
 
 export default function Home({posts, PostsError}) {
-  
+    const [isDispacteched, setisDispacteched] = useState(false)
     const orbis = new Orbis({
       PINATA_GATEWAY: PINATA_GATEWAY,
       PINATA_API_KEY: PINATA_KEY,
@@ -17,6 +17,12 @@ export default function Home({posts, PostsError}) {
     }
      
     )
+
+    
+      
+    
+    
+    
    
   
   const user = useSelector(state => state.user)
@@ -31,13 +37,15 @@ export default function Home({posts, PostsError}) {
       dispatch(setUser({currentUser}))
       dispatch(setOrbisObject(orbis))
       console.log("conneted user", currentUser )
+      setisDispacteched(true)
    }
       // getConnectedUser()  
   useEffect(() => {
       
     getConnectedUser()  
+    console.log("the orbis", orbis)
     
-  }, [])
+  }, [isDispacteched])
 
   return (
     <div className='max-w-[1300px] mx-auto  '  >

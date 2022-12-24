@@ -1,10 +1,11 @@
 // @ts-nocheck
 
-import {useState} from 'react'
+import {useState, useContext, useEffect} from 'react'
 import { AiOutlineClose, AiOutlineComment, AiOutlineLike } from 'react-icons/ai'
 import { BiUserPlus } from 'react-icons/bi'
 import { HiOutlineDotsHorizontal, HiOutlineShare } from 'react-icons/hi'
 import { IoMdStarOutline } from 'react-icons/io'
+import { useSelector } from 'react-redux'
 import {TwitterIcon, TwitterShareButton, fac} from 'react-share'
 import FacebookIcon from 'react-share/lib/FacebookIcon'
 import FacebookShareButton from 'react-share/lib/FacebookShareButton'
@@ -12,12 +13,45 @@ import RedditIcon from 'react-share/lib/RedditIcon'
 import RedditShareButton from 'react-share/lib/RedditShareButton'
 import WhatsappIcon from 'react-share/lib/WhatsappIcon'
 import WhatsappShareButton from 'react-share/lib/WhatsappShareButton'
+import OrbisProvider from '../context/orbisProvider'
+
 export default function PostCardFooter({post}) {
   const [isShareModal, setisShareModal] = useState(false)
+  const [userReactions, setuserReactions] = useState()
       const shareUrl  = "peruzi.xyz"
+      const context = useContext(OrbisProvider)
+      const {isAuthenticated, user} = useSelector(state => state.user)
     const toggleIsShareModal = () => {
     isShareModal ?   setisShareModal(false) : setisShareModal(true)
     }
+     
+    useEffect(() => {
+      const getUserReactions =  async () => {
+        let { data, error } = await orbis.getReaction(post?.stream_id, user?.did);
+         setuserReactions(data)
+      }
+    }, [user])
+    
+    console.log("user reactions", userReactions)
+
+      const handleLike =  async () =>  {
+         if(isAuthenticated){
+          let res = await context.react(
+            post.stream_id,
+            "like"
+          );
+         }
+      }
+
+
+      const handleStarPost =  async () =>  {
+        if(isAuthenticated){
+         let res = await context.react(
+           post.stream_id,
+           "haha"
+         );
+        }
+     }
   return (
     <div className=' mt-2 relative'>
        {
@@ -59,8 +93,8 @@ export default function PostCardFooter({post}) {
            </div>
            </div>
          }
-        <div className='flex items-center gap-4 py-2 px-4 justify-between sm:hidden'>
-            <div className='flex gap-2  items-center'>
+        <div className='flex items-center gap-4 py-2 px-4 justify-between '>
+            <div className='flex gap-2  items-center sm:hidden'>
               <div className='w-7 h-7 border border-purple-500 cursor-pointer rounded-full flex items-center justify-center ml-2'>
                 <img   src='https://nftcoders.com/avatar/avatar-cool.svg'  alt='logo'
                   className='rounded-full w-6 h-6 '
@@ -80,7 +114,7 @@ export default function PostCardFooter({post}) {
          </div>
 
          <div className='flex gap-2 items-center'>
-            <IoMdStarOutline className='w-5 h-5 cursor-pointer' />
+            <IoMdStarOutline className='w-5 h-5 cursor-pointer' onClick={handleStarPost} />
           {post?.count_haha ? 
           <p>{post?.count_haha}</p> :
            <p className='xs:hidden sm:block'>Favourite</p>
@@ -88,7 +122,7 @@ export default function PostCardFooter({post}) {
          </div>
 
          <div className='flex gap-2 items-center'>
-          <AiOutlineLike className='w-5 h-5 cursor-pointer' />
+          <AiOutlineLike className='w-5 h-5 cursor-pointer' onClick={handleLike} />
           {post?.count_likes ? 
           <p>{post?.count_likes}</p> :
           <p className='xs:hidden sm:block'>likes</p>

@@ -21,7 +21,7 @@ export default function UserStats({userInfo, userPosts}) {
      console.log("the user data", theUserData)
   return (
     <div className='mt-2 px-2'>
-        <h1 className='font-serif font-semibold text-xl'>{theUserData?.details?.profile?.username }</h1>
+        <h1 className='font-serif font-semibold text-xl'>{userInfo?.details?.profile?.username }</h1>
 
          <div className='mt-3 px-4 flex gap-7 w-[100%] justify-between'>
           <div>

@@ -59,8 +59,9 @@ export default function UserProfile() {
        const fetchUserPosts = async () =>  {
         setisUserPostsLoading(true)
         let { data, error } = await orbis.getPosts({
+          
+          did :  "", //user.did,
           context : "peruzi10",
-          did : user.did,
           only_master : true
         });
           
@@ -69,7 +70,7 @@ export default function UserProfile() {
           setuserPostsError(error)
        }
        fetchUserPosts()
-    }, [user])
+    }, [])
   
   return (
     <div className='max-w-[1300px] h-screen mx-auto'>
