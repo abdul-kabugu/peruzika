@@ -6,7 +6,7 @@ import {RiHashtag} from 'react-icons/ri'
 //  { name: 'Discover', to: '/', icon: HiOutlineHome },
 export const Links = [
     { name : "For U",  to : '/', icon : BiHomeSmile, isFirst : true },
-    { name : "News Channel",  to : '/channels', icon : RiHashtag },
+    { name : "News Channel",  to : '/categories', icon : RiHashtag },
     { name : "Live ",  to : '/live', icon : RiLiveLine },
     { name : "Messages",  to : '/messages', icon : BiMessageSquareDetail},
     { name : "Me",  to : '/profile', icon : FiUser },

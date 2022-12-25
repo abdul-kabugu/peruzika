@@ -1,4 +1,6 @@
 import Authenticate from "./Authenticate";
+import CategoriesMain from "./CategoriesMain";
+import Comments from "./Comments";
 import CreateFullPost from "./CreateFullPost";
 import CreatePost from "./CreatePost";
 import EditProfile from "./EditProfile";
@@ -18,5 +20,5 @@ import UserIdMain from "./UserIdMain";
 export {
     TopNav, Sidebar, TrendingBar, Main,Modal, CreatePost, Authenticate, PostCardFooter,
     CreateFullPost, PostSettingsModal, ProfileSettingsModal, ProfileMain, UserIdMain,
-    PostPageMain, RelatePosts
+    PostPageMain, RelatePosts, CategoriesMain, Comments
 }

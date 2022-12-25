@@ -64,7 +64,8 @@ export default function Home({posts, PostsError}) {
   export  async function getServerSideProps() {
     const orbis = new Orbis()
     let { data, error } = await orbis.getPosts({
-      context : "peruzi10"
+      context : "peruzi10",
+      only_master : true
     });
 
     return {

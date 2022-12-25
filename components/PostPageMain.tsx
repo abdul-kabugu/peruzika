@@ -8,6 +8,8 @@ import PostReactions from './PostReactions'
 import PostCardFooter from './PostCardFooter'
 import TextareaAutosize from 'react-textarea-autosize';
 import { BeatLoader } from 'react-spinners'
+import Comments from './Comments'
+import { useRouter } from 'next/router'
 export default function PostPageMain({post}) {
   const [decryptedPost, setdecryptedPost] = useState("")
   const [isLoading, setisLoading] = useState(false)
@@ -15,6 +17,7 @@ export default function PostPageMain({post}) {
   const [isCommenting, setisCommenting] = useState(false)
   const [commentTxt, setcommentTxt] = useState("")
   const context = useContext(OrbisProvider)
+   const router = useRouter()
   useEffect(() => {
     // decrypt  post
   
@@ -47,7 +50,9 @@ const dateOptions = {
 };
 const date = new Date(post.timestamp * 1000);
 const humanReadableString = date.toLocaleString("en-US", dateOptions);
-
+  const handleGoBack = () =>  {
+    router.back()
+  }
 const  displayPosts  = () =>  {
   if(!("title" in post?.content)){
     return(
@@ -133,7 +138,7 @@ const  handleComment  =  async () => {
   setisCommenting(true)
   let res = await context.createPost({
     body : commentTxt,
-    master : "kjzl6cwe1jw145qt3jcyvb9j3ryxsccd9c7s6jswgnc099uy0ljtwzlxenpblfd"     //post.stream_Id
+    master : post.stream_Id
   });
   setisCommenting(false)
 }
@@ -141,7 +146,7 @@ const  handleComment  =  async () => {
     <div  className=' xs:w-[100vw] xs:h-screen sm:h-screen  sm:w-[470px] md:w-[500px] w-[600px] xl:w-[650px]
     overflow-y-scroll hide-scrollbar xs:mb-7 sm:mb-0 border-x border-x-red-600'>
           <div className='w-[100%] h-[65px] bg-white flex items-center px-3 '>
-            <div className='flex items-center gap-2 cursor-pointer'>
+            <div className='flex items-center gap-2 cursor-pointer' onClick={handleGoBack}>
              <AiOutlineLeft className='xs:w-6 xs:h-6 lg:w-8 lg:h-8' />
               <h1 className='text-2xl font-semibold'>Back</h1>
              </div>
@@ -166,6 +171,7 @@ const  handleComment  =  async () => {
 
                 <div className='mt-[10px] px-3'>
                   <h1 className='text-xl font-semibold'>Comments</h1>
+                    <Comments  post = {post} />
                 </div>
     </div>
   )

@@ -11,6 +11,9 @@ import {Orbis} from '@orbisclub/orbis-sdk'
 import {PINATA_GATEWAY, PINATA_KEY, PINATA_SECRET} from '../assets/constants'
 import { setUser, setOrbisObject } from '../redux/userSlice';
 import { BiLoader } from 'react-icons/bi';
+import { BeatLoader } from 'react-spinners';
+import { useRouter } from 'next/router';
+
 
 export default function CreateFullPost() {
   const [postTitle, setpostTitle] = useState("")
@@ -25,10 +28,12 @@ export default function CreateFullPost() {
     const [tokenBalance, settokenBalance] = useState("")
     const [purchaseUrl, setpurchaseUrl] = useState("")
     const [isPublishing, setIsPublishing] = useState(false)
-    
+    const router = useRouter()
     const [userData, setuserData] = useState()
    const {result, uploader } = useDisplayImage()
-   
+     const handleGoBack = () =>  {
+       router.back()
+     }
       const {user, orbis, isAuthenticated} = useSelector(state => state.user)
        
       const profileOrbis = new Orbis({
@@ -69,7 +74,7 @@ export default function CreateFullPost() {
 
 
 
-        console.log("user data", user)
+       
         
      const coverRef = useRef(null)
       console.log("these are post  tags", postTags)
@@ -115,7 +120,14 @@ export default function CreateFullPost() {
             minTokenBalance : tokenBalance,
 
           }
-        let res = await orbis.createPost(postBody, encryptionRules)
+           if(tokenAddress && tokenBalance){
+            let res = await orbis.createPost(postBody, encryptionRules)
+           }else {
+            let res = await orbis.createPost(postBody)
+           }
+
+           
+        
         setIsPublishing(false)
        
       }
@@ -172,13 +184,13 @@ export default function CreateFullPost() {
           </div>
         </div>
           <div className='xs:order-first  flex justify-between py-2 xs:py-1 xs:mb-2 xs:px-2'>
-             <div className='flex items-center gap-2 cursor-pointer '>
+             <div className='flex items-center gap-2 cursor-pointer ' onClick={handleGoBack}>
                  <AiOutlineLeft size={24} className='w'  />
                    <p className='font-semibold text-lg'>Post</p>
              </div>
             <div className='flex xs:gap-4 items-center'>
               <button className='py-1 px-2 border border-gray-300 rounded-sm ' onClick={handlePublish}>
-                 {isPublishing ? <BiLoader size={9}  /> : "Publish"}
+                 {isPublishing ? <BeatLoader size={9}  /> : "Publish"}
               </button>
                <div className='rounded-2xl flex items-center justify-center w-10 h-9 border border-gray-300 cursor-pointer'
                  onClick={toggleIsSettingsModal}
