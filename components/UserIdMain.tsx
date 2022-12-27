@@ -44,7 +44,7 @@ export default function UserIdMain({userDetails, userPosts, userAccount }) {
      const pfpUrl = userDetails.details?.profile?.pfp.replace("ipfs://", PINATA_GATEWAY)
   return (
     <div className='xs:w-[100vw] xs:h-screen sm:h-screen  sm:w-[470px] md:w-[500px] w-[600px] xl:w-[650px]
-    overflow-y-scroll xs:mb-[58px] hide-scrollbar sm:mb-0 border-x border-red-800  '>
+    overflow-y-scroll xs:mb-[58px] hide-scrollbar sm:mb-0 '>
         <div className='relative w-[100%] '>
         <div className='w-[100%] h-[250px]  userIdBanner  rounded-sm'>
            

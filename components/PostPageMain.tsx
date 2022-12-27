@@ -138,13 +138,15 @@ const  handleComment  =  async () => {
   setisCommenting(true)
   let res = await context.createPost({
     body : commentTxt,
-    master : post.stream_Id
+    master :  post.stream_id
   });
   setisCommenting(false)
 }
+
+  console.log("stream id", post.stream_id)
   return (
     <div  className=' xs:w-[100vw] xs:h-screen sm:h-screen  sm:w-[470px] md:w-[500px] w-[600px] xl:w-[650px]
-    overflow-y-scroll hide-scrollbar xs:mb-7 sm:mb-0 border-x border-x-red-600'>
+    overflow-y-scroll hide-scrollbar xs:mb-7 sm:mb-0 '>
           <div className='w-[100%] h-[65px] bg-white flex items-center px-3 '>
             <div className='flex items-center gap-2 cursor-pointer' onClick={handleGoBack}>
              <AiOutlineLeft className='xs:w-6 xs:h-6 lg:w-8 lg:h-8' />
@@ -170,7 +172,7 @@ const  handleComment  =  async () => {
               </div>
 
                 <div className='mt-[10px] px-3'>
-                  <h1 className='text-xl font-semibold'>Comments</h1>
+                  <h1 className='text-xl font-semibold mb-3'>Comments</h1>
                     <Comments  post = {post} />
                 </div>
     </div>

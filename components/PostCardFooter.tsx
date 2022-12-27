@@ -18,7 +18,7 @@ import OrbisProvider from '../context/orbisProvider'
 export default function PostCardFooter({post}) {
   const [isShareModal, setisShareModal] = useState(false)
   const [userReactions, setuserReactions] = useState()
-      const shareUrl  = "peruzi.xyz"
+      const shareUrl  = `https://peruzi.vercel.app/${post.stream_id}`       //"peruzi.xyz"
       const context = useContext(OrbisProvider)
       const {isAuthenticated, user} = useSelector(state => state.user)
     const toggleIsShareModal = () => {

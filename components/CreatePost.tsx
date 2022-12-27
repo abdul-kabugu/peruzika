@@ -9,6 +9,7 @@ import {PINATA_GATEWAY, PINATA_KEY, PINATA_SECRET} from '../assets/constants'
 import {Orbis} from '@orbisclub/orbis-sdk'
 import { useSelector } from 'react-redux';
 import { CircleLoader } from 'react-spinners';
+import { RiImageAddFill } from 'react-icons/ri';
 export default function CreatePost() {
     const [postTxt, setpostTxt] = useState("")
    // const orbis = new Orbis()
@@ -95,9 +96,9 @@ export default function CreatePost() {
           <div className='w-[100%] h-[130px] custom-border mt-4
             p-4 rounded-xl flex items-center justify-center gap-4 cursor-pointer 
           ' onClick={handleOpenInput}>
-            <FiPlus className='md:w-9 md:h-9 text-purple-700 xs:w-7 xs:h-7' />
-              <h4 className='md:text-xl font-serif text-purple-900 xs:text-lg' >Add a picture or  video</h4>
-     <input   type="file" 
+            <RiImageAddFill className='md:w-9 md:h-9 text-purple-700 xs:w-7 xs:h-7' />
+              <h4 className='md:text-xl font-serif text-purple-900 xs:text-lg' >Add a post cover</h4>
+     <input   type="file" accept='image/*'
       onChange={e => {setpostFile(e.target.files[0]) 
         uploader(e)
       }}
