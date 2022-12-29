@@ -49,12 +49,12 @@ export default function EditProfile({ toggleIsEditProfile}) {
               const pfpUrl = user?.details?.profile?.pfp?.replace("ipfs://", PINATA_GATEWAY)
               if(user.details?.profile?.pfp && ! result){
                 return(
-                  <img   src={pfpUrl}   className='w-[90%] rounded-full z-0'     />
+                  <img   src={pfpUrl}   className='w-[90%] max-h-[85px] object-cover rounded-full z-0'     />
                 )
               } else if(! user.details?.profile?.pfp && ! result){
                 return(
                    <img   src='https://nftcoders.com/avatar/avatar-cool.svg' 
-                   className='w-[90%] rounded-full z-0'    />
+                   className='w-[90%] max-h-[85px] object-cover rounded-full z-0'    />
                 )
               }else if(result){
                 return (
