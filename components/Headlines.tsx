@@ -1,8 +1,28 @@
 // @ts-nocheck
-import React from 'react'
+import {useState, useEffect, useContext} from 'react'
 import {fakeHeadlines}  from '../assets/fakeHeadlines'
+import OrbisProvider from '../context/orbisProvider'
 import HeadlineCard from './HeadlineCard'
+
 export default function Headlines() {
+  const [trendingNews, settrendingNews] = useState()
+  const context = useContext(OrbisProvider)
+   useEffect(() => {
+     const fetchTrendingNews = async () =>  {
+      let { data, error } = await context.getPosts({
+        context : "peruzi10",
+        only_master : true,
+        //algorithm : "recommendations"
+      });
+      const trendingData =  data?.slice(0, 10)
+      settrendingNews(trendingData)
+     }
+     fetchTrendingNews()
+   }, [])
+   console.log("the trending  news is here", trendingNews)
+
+     
+     
   return (
     <div className='mt-4'>
         <div className='px-5 my-3 '>
@@ -13,7 +33,7 @@ export default function Headlines() {
         </div>
 
          <div>
-            {fakeHeadlines.map((news, i) => {
+            {trendingNews?.map((news, i) => {
 
                 return(
                     <HeadlineCard key={i} news = {news} />

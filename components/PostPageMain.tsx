@@ -10,6 +10,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { BeatLoader } from 'react-spinners'
 import Comments from './Comments'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 export default function PostPageMain({post}) {
   const [decryptedPost, setdecryptedPost] = useState("")
   const [isLoading, setisLoading] = useState(false)
@@ -17,6 +18,7 @@ export default function PostPageMain({post}) {
   const [isCommenting, setisCommenting] = useState(false)
   const [commentTxt, setcommentTxt] = useState("")
   const context = useContext(OrbisProvider)
+  const {user} = useSelector(state => state.user)
    const router = useRouter()
   useEffect(() => {
     // decrypt  post
@@ -39,7 +41,7 @@ export default function PostPageMain({post}) {
 
     decryptPosts()
     console.log("the context")
-}, [decryptedPost])
+}, [decryptedPost, user, user?.details?.hasLit])
 
 const dateOptions = {
   timeZone: "UTC",
@@ -80,6 +82,19 @@ const  displayPosts  = () =>  {
         <div className='px-5 mb-3'>
           <h2>{humanReadableString}</h2>
         </div>
+        <div>
+          { decryptedPost ? (
+            <div className="bg-gray-400 w-[100%] -order-first  rounded-md ">
+            {post?.content?.media?.map((img, i) => {
+              const imgUrl = img.url?.replace("ipfs://", `${img.gateway}`)
+              return(
+              <img key={i} src={imgUrl} alt='picture ' 
+                className="w-[100%] xs:h-[210px] sm:h-[310px]  max-h-[100%]  lg:h-[386px] object-cover rounded-md "
+              />
+              )
+            })}
+         </div>
+          ):
       <div className="py-1 px-2 relative">
         
       <div className="bg-gray-400 w-[100%] -order-first  rounded-md ">
@@ -100,6 +115,8 @@ const  displayPosts  = () =>  {
              <button className="mt-2 py-2 px-3 border border-purple-400 rounded-md" onClick={() => handleBuyMembership(post?.content?.data.purchaseUrl)}>Buy membership</button> 
       </div>
         
+      </div>
+  }
       </div>
           <div className='px-2 py-2'>
             <p className='text-lg font-serif'>{decryptedPost}</p>
@@ -143,10 +160,10 @@ const  handleComment  =  async () => {
   setisCommenting(false)
 }
 
-  console.log("stream id", post.stream_id)
+  console.log("stream id", post?.content?.body)
   return (
     <div  className=' xs:w-[100vw] xs:h-screen sm:h-screen  sm:w-[470px] md:w-[500px] w-[600px] xl:w-[650px]
-    overflow-y-scroll hide-scrollbar xs:mb-7 sm:mb-0 '>
+    overflow-y-scroll hide-scrollbar xs:mb-7 sm:mb-0 border-x border-gray-300 '>
           <div className='w-[100%] h-[65px] bg-white flex items-center px-3 '>
             <div className='flex items-center gap-2 cursor-pointer' onClick={handleGoBack}>
              <AiOutlineLeft className='xs:w-6 xs:h-6 lg:w-8 lg:h-8' />

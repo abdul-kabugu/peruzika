@@ -10,18 +10,20 @@ import {Orbis} from '@orbisclub/orbis-sdk'
 import { useSelector } from 'react-redux';
 import { CircleLoader } from 'react-spinners';
 import { RiImageAddFill } from 'react-icons/ri';
+
 export default function CreatePost() {
     const [postTxt, setpostTxt] = useState("")
    // const orbis = new Orbis()
     const [isAddMedia, setisAddMedia] = useState(false)
     const [postFile, setpostFile] = useState([])
-    const {orbis} = useSelector(state => state.user)
+    const {orbis, user} = useSelector(state => state.user)
     const [theData, settheData] = useState()
     const toggleIsAddMedia = () => {
       isAddMedia ? setisAddMedia(false) : setisAddMedia(true)
     }
     const imgRef = useRef(null)
-   
+    console.log("the user", user)
+      const pfpUrl = user?.details?.profile?.pfp?.replace("ipfs://", PINATA_GATEWAY)
       const handleOpenInput = () => {
          imgRef.current.click()
       }
@@ -58,8 +60,8 @@ export default function CreatePost() {
           media : [res.result],
           context : "peruzi10",
           tags :[ {
-            slug : "peruzi testing",
-            title : 'peruzi testing'
+            slug : "peruzi post",
+            title : 'peruzi post'
           }],
         })
      }
@@ -72,8 +74,8 @@ export default function CreatePost() {
          <div   className='ring-2 ring-purple-500 xs:w-9 xs:h-9 sm:w-10 h-10 md:w-12 md:h-12 flex items-center justify-center
            rounded-full
          '>
-         <img   src='/img/peruzi.png'  alt="user" 
-           className=' xs:w-7 xs:h-7 sm:w-8 sm:h-8 md:w-10 md:h-10'  
+         <img   src={   pfpUrl || "/img/peruzi.png"}  alt="user" 
+           className=' xs:w-7 xs:h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full'  
          />
          </div>
          <div className='w-[90%]' onClick={toggleIsAddMedia}>

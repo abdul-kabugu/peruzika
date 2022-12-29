@@ -62,7 +62,7 @@ export default function TokenGateKeys({toggleIsTokenGateModal}) {
 
          <div className='mt-4 w-[90%] mx-auto flex items-center justify-between'>
          <button className='w-[40%] border border-gray-300 py-2 px-4 rounded-lg' onClick={toggleIsTokenGateModal}>Cancel</button>
-         <button className='w-[40%] bg-purple-600 text-white py-2 px-4 rounded-lg' onClick={handleAddMembership}>
+         <button className='w-[40%] bg-purple-600 text-white py-2 px-4 rounded-lg' onClick={handleAddMembership} disabled={!tokenAddress || !tokenName}>
             {isUpdatingProfile  ?  <BeatLoader  size={9}  /> : "Save"}
          </button>
          </div>

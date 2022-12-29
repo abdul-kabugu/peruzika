@@ -88,6 +88,7 @@ export default function CreateFullPost() {
         const  handleOpenInput = () =>  {
            coverRef.current.click()
         }
+       
        const toggleIsSettingsModal = () =>  {
         isPostStting ?  setisPostStting(false) : setisPostStting(true)
        }
@@ -132,7 +133,7 @@ export default function CreateFullPost() {
        
       }
   return (
-    <div className='w-[100%] h-screen border '>
+    <div className='w-[100%] h-screen border overflow-y-scroll  hide-scrollbar '>
        <div className='flex justify-between  xs:flex-col '>
          <div>
         <input type="text" value={postTitle} onChange = {e => setpostTitle(e.target.value)}
@@ -282,15 +283,27 @@ return(
 )
 })}
         </select>
+        
+        <h4 className='capitalize  font-semibold mt-2'>Purchase Url</h4>
+           <select value={purchaseUrl} onChange = {e => setpurchaseUrl(e.target.value)}
+              className="w-[100%] py-2 px-3 focus:outline-none border border-purple-300 rounded-md mt-1"
+           >
+            {userData?.details?.profile.data.peruziMemberships.map((item, i) => {
+  
+  return(
+    <option key={i} value={item.purchaseUrl}>{item.packageName }</option>
+  )
+  })}
+           </select>
         <h4 className='capitalize  font-semibold mt-2'>Required token balance</h4>
          <input  type="number" value={tokenBalance} onChange = {e => settokenBalance(e.target.value)}   
          placeholder="0.00" className='w-[100%] py-2 px-4 focus:outline-none border border-purple-300 rounded-lg'
          />
 
-<h4 className='capitalize  font-semibold mt-2'>Purchase Url</h4>
+{/*<h4 className='capitalize  font-semibold mt-2'>Purchase Url</h4>
          <input  value={purchaseUrl} onChange = {e => setpurchaseUrl(e.target.value)}   
          placeholder="https://flocker..." className='w-[100%] py-2 px-4 focus:outline-none border border-purple-300 rounded-lg'
-         />
+/>*/}
    </div>
           <div className='flex gap-4 justify-between mt-7 mb-4 w-[90%] items-center mx-auto'>
             <button onClick={toggleIsSettingsModal} className="w-2/5 border border-gray-300 py-2 px-4 rounded-lg">cancel</button>

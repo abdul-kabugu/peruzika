@@ -41,7 +41,7 @@ getConnectedUser()
       
         <PostPageMain post = {postDetails}  />
         
-        <RelatePosts />
+        <RelatePosts post = {postDetails} />
         </div>
   </div>
     </div>

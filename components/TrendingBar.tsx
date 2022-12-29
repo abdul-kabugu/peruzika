@@ -1,12 +1,14 @@
+// @ts-nocheck
 import {useState} from 'react'
 import { BiSearch } from 'react-icons/bi'
+import { useSelector } from 'react-redux'
 import Authenticate from './Authenticate'
 import Headlines from './Headlines'
 
 export default function TrendingBar() {
   const [searchTxt, setsearchTxt] = useState("")
-  const [isSearchActive, setisSearchActive] = useState(false)
-  const [isAuthenticated, setisAuthenticated] = useState(false)
+  const [isSearchActive, setisSearchActive] = useState(false) 
+  const {user, isAuthenticated} = useSelector(state => state.user)
   const toggleIsSearchActive = () => {
      isSearchActive ? setisSearchActive(false) : setisSearchActive(true)
   }
@@ -23,7 +25,7 @@ export default function TrendingBar() {
         />
      </div>
 
-       {! isAuthenticated && <Authenticate  />}
+       {!isAuthenticated && <Authenticate  />}
 
          <Headlines  />
     </div>

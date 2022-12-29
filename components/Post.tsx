@@ -19,10 +19,10 @@ export default function Post({post}) {
   const [decryptedPost, setdecryptedPost] = useState()
   const [status, setstatus] = useState()
       const dispatch = useDispatch()
-    const {user, orbis} = useSelector(state => state.user)
+    const {user, orbis, isAuthenticated} = useSelector(state => state.user)
      const context = useContext(OrbisProvider)
 
-    
+    console.log("the post", post.content.body)
     useEffect(() => {
         // decrypt  post
       
@@ -44,8 +44,9 @@ export default function Post({post}) {
 
         decryptPosts()
         console.log("the context")
-    }, [decryptedPost])
+    }, [decryptedPost, user, isAuthenticated])
     
+    console.log("the decrypted posts", user)
    
           //
   console.log("the context", post)
@@ -76,6 +77,20 @@ export default function Post({post}) {
         }else if(post?.content.body  === "" ){
           return(
             <div>
+              { decryptedPost ? (
+               <div className="bg-gray-400 w-[100%] -order-first  rounded-md ">
+               {post?.content?.media?.map((img, i) => {
+                 const imgUrl = img.url?.replace("ipfs://", `${img.gateway}`)
+                 return(
+                 <img key={i} src={imgUrl} alt='picture ' 
+                   className="w-[100%] xs:h-[210px] sm:h-[310px]  max-h-[100%]  lg:h-[386px] object-cover rounded-md "
+                 />
+                 )
+                 
+               })}
+            </div>
+              ):
+                <>
             <div className="py-1 px-2 relative">
               
             <div className="bg-gray-400 w-[100%] -order-first  rounded-md ">
@@ -86,23 +101,28 @@ export default function Post({post}) {
                    className="w-[100%] xs:h-[210px] sm:h-[310px]  max-h-[100%]  lg:h-[386px] object-cover rounded-md "
                  />
                  )
+                 
                })}
             </div>
-            <div className="w-[100%]  h-[100%] bg-black/80 absolute z-0 top-0 left-0 backdrop-blur-md rounded-md
+            <div className={`w-[100%]  h-[100%] bg-black/80 absolute z-0 top-0 left-0 backdrop-blur-md rounded-md
               flex items-center justify-center text-white flex-col
-            ">
+              `}>
                    <AiOutlineLock className="w-11 h-11 mb-2"  />
                    <p className="font-semibold">Unlock full content  by <br /> subscribing to creator</p>
                    <button className="mt-2 py-2 px-3 border border-purple-400 rounded-md" onClick={() => handleBuyMembership(post?.content?.data.purchaseUrl)}>Buy membership</button> 
             </div>
-              
+            
             </div>
+            </>}
             <div className="py-1 px-4 w-[100%]">
            <Link href={`/post/${post.stream_id}`}> <h1 className="font-semibold text-xl">{post?.content  && truncatetext(post.content.title, 100)}</h1></Link>
             </div>
+            
+        
             </div>
           )
-        }else  {
+        }
+           else  {
           return(
             <div className="py-1 px-2">
             

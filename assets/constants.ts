@@ -7,12 +7,13 @@ import {RiHashtag} from 'react-icons/ri'
 export const Links = [
     { name : "For U",  to : '/', icon : BiHomeSmile, isFirst : true },
     { name : "News Channel",  to : '/categories', icon : RiHashtag },
-    { name : "Live ",  to : '/live', icon : RiLiveLine },
+   
     { name : "Messages",  to : '/messages', icon : BiMessageSquareDetail},
     { name : "Me",  to : '/profile', icon : FiUser },
     
     
 ]
+// { name : "Live ",  to : '/live', icon : RiLiveLine },
 
   export  const INFURA_KEY =  'c1bf28b6f255447c97d87cbf0527c644'
    export const PINATA_KEY = "5f360e4d180f463c3e19"

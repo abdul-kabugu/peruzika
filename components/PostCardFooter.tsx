@@ -1,5 +1,6 @@
 // @ts-nocheck
 
+import Link from 'next/link'
 import {useState, useContext, useEffect} from 'react'
 import { AiOutlineClose, AiOutlineComment, AiOutlineLike } from 'react-icons/ai'
 import { BiUserPlus } from 'react-icons/bi'
@@ -13,6 +14,7 @@ import RedditIcon from 'react-share/lib/RedditIcon'
 import RedditShareButton from 'react-share/lib/RedditShareButton'
 import WhatsappIcon from 'react-share/lib/WhatsappIcon'
 import WhatsappShareButton from 'react-share/lib/WhatsappShareButton'
+import { PINATA_GATEWAY } from '../assets/constants'
 import OrbisProvider from '../context/orbisProvider'
 
 export default function PostCardFooter({post}) {
@@ -24,7 +26,7 @@ export default function PostCardFooter({post}) {
     const toggleIsShareModal = () => {
     isShareModal ?   setisShareModal(false) : setisShareModal(true)
     }
-     
+       const  pfpUrl = post?.creator_details?.profile?.pfp?.replace("ipfs://", PINATA_GATEWAY)
     useEffect(() => {
       const getUserReactions =  async () => {
         let { data, error } = await orbis.getReaction(post?.stream_id, user?.did);
@@ -94,14 +96,14 @@ export default function PostCardFooter({post}) {
            </div>
          }
         <div className='flex items-center gap-4 py-2 px-4 justify-between '>
-            <div className='flex gap-2  items-center sm:hidden'>
+         <Link href={`/profile/${post?.creator}`}>  <div className='flex gap-2  items-center sm:hidden'>
               <div className='w-7 h-7 border border-purple-500 cursor-pointer rounded-full flex items-center justify-center ml-2'>
-                <img   src='https://nftcoders.com/avatar/avatar-cool.svg'  alt='logo'
+                <img   src={ pfpUrl ||   'https://nftcoders.com/avatar/avatar-cool.svg'}  alt='logo'
                   className='rounded-full w-6 h-6 '
                 />
               </div>
                 <BiUserPlus className='text-gray-500 cursor-pointer w-5 h-5' />
-            </div>
+            </div> </Link> 
             <div className='flex gap-2 items-center cursor-pointer' onClick={toggleIsShareModal}>
          <HiOutlineShare className='w-5 h-5 cursor-pointer'  />
           <p className='xs:hidden sm:block'>Share</p>
