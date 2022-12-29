@@ -41,7 +41,7 @@ const toggleIsEditProfile = ( ) =>  {
         <div className='absolute top-[200px] px-4 flex justify-between  w-[100%] items-start '>
             <div className='flex items-center gap-3'>
               <div className='w-[110px] h-[110px] rounded-lg ring-4 bg-purple-200 ring-white flex items-center justify-center'>
-                <img  src={pfpUrl || "/img/peruzi.png"}  className="max-w-[105px] max-h-[105px] rounded-lg"   />
+                <img  src={pfpUrl || "/img/peruzi.png"}  className="max-w-[80%] max-h-[105px] rounded-lg"   />
               </div>
               <div className='mt-9 '>
               <h1 className='font-semibold text-xl'>{userInfo?.details?.profile?.username || "--"}</h1>

@@ -75,7 +75,7 @@ export default function CreatePost() {
            rounded-full
          '>
          <img   src={   pfpUrl || "/img/peruzi.png"}  alt="user" 
-           className=' xs:w-7 xs:h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full'  
+           className=' xs:w-7 xs:h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full object-cover'  
          />
          </div>
          <div className='w-[90%]' onClick={toggleIsAddMedia}>

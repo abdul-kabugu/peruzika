@@ -91,7 +91,7 @@ export default function Post({post}) {
             </div>
               ):
                 <>
-            <div className="py-1 px-2 relative">
+            <div className="py-1 px-2 relative -z-10">
               
             <div className="bg-gray-400 w-[100%] -order-first  rounded-md ">
                {post?.content?.media?.map((img, i) => {
@@ -104,7 +104,7 @@ export default function Post({post}) {
                  
                })}
             </div>
-            <div className={`w-[100%]  h-[100%] bg-black/80 absolute z-0 top-0 left-0 backdrop-blur-md rounded-md
+            <div className={`w-[100%]  h-[100%] bg-black/80 absolute  top-0 left-0 backdrop-blur-md rounded-md
               flex items-center justify-center text-white flex-col
               `}>
                    <AiOutlineLock className="w-11 h-11 mb-2"  />

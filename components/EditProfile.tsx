@@ -24,13 +24,21 @@ export default function EditProfile({ toggleIsEditProfile}) {
              setisUpdatingProfile(true)
               
                 let avatar = await orbis.uploadMedia(newProfileFile);
-               
-                let res = await orbis.updateProfile({
-                  pfp: avatar.result.url || user.details?.profile?.pfp,
-                  username:  userName || user.details?.profile?.username,
-                  description : userBio  || user.details?.profile?.description,
-                  data : user.details?.profile?.data?.peruziMemberships,
-                });
+                 if(user.details?.profile?.data){
+                  let res = await orbis.updateProfile({
+                    pfp: avatar.result.url || user.details?.profile?.pfp,
+                    username:  userName || user.details?.profile?.username,
+                    description : userBio  || user.details?.profile?.description,
+                    data : user.details?.profile?.data?.peruziMemberships,
+                  });
+                }else {
+                  let res = await orbis.updateProfile({
+                    pfp: avatar.result.url || user.details?.profile?.pfp,
+                    username:  userName || user.details?.profile?.username,
+                    description : userBio  || user.details?.profile?.description,
+                    //data : user.details?.profile?.data?.peruziMemberships,
+                  });
+                }
 
                 setisUpdatingProfile(false)
               } 
@@ -50,7 +58,7 @@ export default function EditProfile({ toggleIsEditProfile}) {
                 )
               }else if(result){
                 return (
-                   <img   src={result}   className='w-[90%] rounded-full z-0'     /> 
+                   <img   src={result}   className='w-[90%] max-h-[85px] object-cover rounded-full z-0'     /> 
                 )
               }
             }
