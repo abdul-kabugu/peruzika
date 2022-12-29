@@ -9,7 +9,7 @@ import SportCategory from './SportCategory';
 export default function CategoriesMain() {
   return (
     <div className=' xs:w-[100vw] xs:h-screen sm:h-screen  sm:w-[470px] md:w-[500px] w-[600px] xl:w-[650px]
-    overflow-y-scroll hide-scrollbar xs:mb-7 sm:mb-0 border-x border-x-red-600'>
+    overflow-y-scroll hide-scrollbar xs:mb-7 sm:mb-0 border-x border-r-gray-200'>
        <div className='xs:mt-12 md:mt-4'>
         <Tabs  className="px-3">
           <TabList className="flex justify-between px-3  w-[100%] ">
