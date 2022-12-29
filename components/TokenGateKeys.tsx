@@ -13,22 +13,40 @@ export default function TokenGateKeys({toggleIsTokenGateModal}) {
     console.log("the user from profile", user)
       const handleAddMembership = async () => {
          setisUpdatingProfile(true)
+
           const userPackages = user.details?.profile?.data?.peruziMemberships
             console.log("user packages", userPackages)
-         let res = await orbis.updateProfile({
-          pfp: user.details?.profile?.pfp,
-          username : user.details?.profile?.username,
-          description  : user.details?.profile?.description,
-            data : {
-                peruziMemberships : [...userPackages, 
-                    {
-                        packageName : tokenName,
-                        tokenAddress : tokenAddress,
-                        purchaseUrl : purchaseLink
-                    }
-                ]
-            }
-          })
+            if(userPackages){
+            let res = await orbis.updateProfile({
+              pfp: user.details?.profile?.pfp,
+              username : user.details?.profile?.username,
+              description  : user.details?.profile?.description,
+                data : {
+                    peruziMemberships : [...userPackages, 
+                        {
+                            packageName : tokenName,
+                            tokenAddress : tokenAddress,
+                            purchaseUrl : purchaseLink
+                        }
+                    ]
+                }
+              })
+           }else {
+            let res = await orbis.updateProfile({
+              pfp: user.details?.profile?.pfp,
+              username : user.details?.profile?.username,
+              description  : user.details?.profile?.description,
+                data : {
+                    peruziMemberships : [ 
+                        {
+                            packageName : tokenName,
+                            tokenAddress : tokenAddress,
+                            purchaseUrl : purchaseLink
+                        }
+                    ]
+                }
+              })
+           }
 
           setisUpdatingProfile(false)
       }
