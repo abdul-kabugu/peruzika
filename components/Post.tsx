@@ -91,7 +91,7 @@ export default function Post({post}) {
             </div>
               ):
                 <>
-            <div className="py-1 px-2 relative -z-10">
+            <div className="py-1 px-2 relative ">
               
             <div className="bg-gray-400 w-[100%] -order-first  rounded-md ">
                {post?.content?.media?.map((img, i) => {
@@ -109,7 +109,7 @@ export default function Post({post}) {
               `}>
                    <AiOutlineLock className="w-11 h-11 mb-2"  />
                    <p className="font-semibold">Unlock full content  by <br /> subscribing to creator</p>
-                   <button className="mt-2 py-2 px-3 border border-purple-400 rounded-md" onClick={() => handleBuyMembership(post?.content?.data.purchaseUrl)}>Buy membership</button> 
+                   <button className="mt-2 py-2 px-3 border border-purple-400 rounded-md " onClick={() => handleBuyMembership(post?.content?.data.purchaseUrl)}>Buy membership</button> 
             </div>
             
             </div>

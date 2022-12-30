@@ -24,7 +24,7 @@ export default function RelatePosts({post}) {
       let { data, error } = await context.getPosts({
         context : "peruzi10",
         only_master : true,
-        tag : relatedTag.slug
+        tag : relatedTag?.slug
       });
 
       setrelatedPosts(data)
