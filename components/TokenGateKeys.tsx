@@ -16,7 +16,7 @@ export default function TokenGateKeys({toggleIsTokenGateModal}) {
 
           const userPackages = user.details?.profile?.data?.peruziMemberships
             console.log("user packages", userPackages)
-            if(userPackages){
+           if(userPackages){
             let res = await orbis.updateProfile({
               pfp: user.details?.profile?.pfp,
               username : user.details?.profile?.username,
@@ -46,7 +46,7 @@ export default function TokenGateKeys({toggleIsTokenGateModal}) {
                     ]
                 }
               })
-           }
+          }
 
           setisUpdatingProfile(false)
       }

@@ -55,9 +55,9 @@ export default function PostHeader({post}) {
       <div className='flex gap-3'>
         <div>
           {post?.creator_details?.profile?.pfp ?
-          <Image  src={pfpUrl} width={25} height={25} alt="profile"   className='w-14 h-14 rounded-full' /> : 
+          <Image  src={pfpUrl} width={25} height={25} alt="profile"   className='w-14 h-14 rounded-full object-cover' /> : 
           <Image src="https://nftcoders.com/avatar/avatar-cool.svg" width={25} height={25} alt="profile" 
-            className='w-14 h-14 rounded-full'
+            className='w-14 h-14 rounded-full object-cover'
           />
         
         }

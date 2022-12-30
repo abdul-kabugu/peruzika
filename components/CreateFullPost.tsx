@@ -17,11 +17,12 @@ import { useRouter } from 'next/router';
 
 export default function CreateFullPost() {
   const [userData, setuserData] = useState()
- // const firstTokenAddress = userData?.details?.profile.data.peruziMemberships.map((data) => {
- //   return data
- // })[0]
+  const firstTokenAddress = userData?.details?.profile.data.peruziMemberships.map((data) => {
+    return data
+  })[0]
 
-  // console.log('the first token address', firstTokenAddress)
+   console.log('the first token address', firstTokenAddress)
+    
   const [postTitle, setpostTitle] = useState("")
    const [postTags, setpostTags] = useState([])
    const [tagTxt, settagTxt] = useState("")
@@ -30,12 +31,12 @@ export default function CreateFullPost() {
     const [coverFile, setcoverFile] = useState([])
     const [rulesChain, setrulesChain] = useState("polygon")
     const [tokenType, setTokenType] = useState("ERC721")
-    const [tokenAddress, settokenAddress] = useState("")
-    const [tokenBalance, settokenBalance] = useState()
+    const [tokenAddress, settokenAddress] = useState(firstTokenAddress?.packageName )
+    const [tokenBalance, settokenBalance] = useState("")
     const [purchaseUrl, setpurchaseUrl] = useState("")
     const [isPublishing, setIsPublishing] = useState(false)
     const router = useRouter()
-    
+    console.log("default token address", tokenAddress)
    const {result, uploader } = useDisplayImage()
      const handleGoBack = () =>  {
        router.back()

@@ -130,7 +130,7 @@ export default function CreatePost() {
         <BiHash className='text-purple-800 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 cursor-pointer' />
          <div className='flex gap-4 py-3 items-center '>
            <p>{postTxt.length} / 300</p>
-            <button className='bg-purple-500 py-1 xs:px-3  rounded-lg font-semibold text-white sm:px-5 sm:py-1' onClick={() => handleCreatingPost()} >Post</button>
+            <button className='bg-purple-500 py-1 xs:px-3  rounded-lg font-semibold text-white sm:px-5 sm:py-1' onClick={() => handleCreatingPost()} disabled={! postTxt || ! postFile}>Post</button>
          </div>
       </div>
        {isCreating   && <CircleLoader  /> }
