@@ -55,6 +55,10 @@ const humanReadableString = date.toLocaleString("en-US", dateOptions);
   const handleGoBack = () =>  {
     router.back()
   }
+
+  const handleBuyMembership = (url) =>  {
+    window.open(url, "_blank")
+  }
 const  displayPosts  = () =>  {
   if(!("title" in post?.content)){
     return(
