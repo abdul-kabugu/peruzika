@@ -25,7 +25,7 @@ export default function TrendingBar() {
         />
      </div>
 
-       {!isAuthenticated && <Authenticate  />}
+      
 
          <Headlines  />
     </div>

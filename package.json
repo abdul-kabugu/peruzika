@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.3",
     "@orbisclub/orbis-sdk": "^0.4.4-beta.41",
     "@reduxjs/toolkit": "^1.9.1",
     "@types/node": "18.11.10",
@@ -17,8 +18,12 @@
     "axios": "^1.2.1",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
+    "ethers": "^5.7.2",
     "file-type": "^18.0.0",
+    "graphql": "^16.6.0",
+    "ipfs-http-client": "^59.0.0",
     "next": "13.0.6",
+    "omit-deep": "^0.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
@@ -27,7 +32,10 @@
     "react-spinners": "^0.13.7",
     "react-tabs": "^6.0.0",
     "react-textarea-autosize": "^8.4.0",
+    "react-toastify": "^9.1.1",
     "typescript": "4.9.3",
+    "uuid": "^9.0.0",
+    "wagmi": "^0.10.2",
     "walletconnect": "^1.7.8"
   },
   "devDependencies": {

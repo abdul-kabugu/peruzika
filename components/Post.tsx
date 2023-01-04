@@ -22,8 +22,8 @@ export default function Post({post}) {
     const {user, orbis, isAuthenticated} = useSelector(state => state.user)
      const context = useContext(OrbisProvider)
 
-    console.log("the post", post.content.body)
-    useEffect(() => {
+    console.log("the post", post)
+    /*useEffect(() => {
         // decrypt  post
       
        
@@ -44,19 +44,10 @@ export default function Post({post}) {
 
         decryptPosts()
         console.log("the context")
-    }, [decryptedPost, user, isAuthenticated])
+    }, [decryptedPost, user, isAuthenticated])*/
     
-    console.log("the decrypted posts", user)
-   
-          //
-  console.log("the context", post)
-         //REMOVED_ THE  HEIGHT  DIMENSIONS 
-          //xs:h-[210px] sm:h-[310] md:h-[326px] lg:h-[386px]
-    //  post?.content?.body
-            const handleBuyMembership = (url) =>  {
-              window.open(url, "_blank")
-            }
-      const  displayPosts  = () =>  {
+  
+     /* const  displayPosts  = () =>  {
         if(!("title" in post?.content)){
           return(
             <div className="py-1 px-2">
@@ -144,13 +135,30 @@ export default function Post({post}) {
         }
 
         
-      }
+      }*/
+      /*   {post?.content?.media?.map((img, i) => {
+                 const imgUrl = img.url?.replace("ipfs://", `${img.gateway}`)
+                 return(
+                 <img key={i} src={imgUrl} alt='picture ' 
+                   className="w-[100%] xs:h-[210px] sm:h-[310px]  max-h-[100%]  lg:h-[386px] object-cover rounded-md "
+                 />
+                 )
+               })}*/
+               const mediaUrl = post?.metadata?.image.replace("ipfs://", PINATA_GATEWAY)
   return (
     <div className="w-[100%] border border-gray-300 my-2  rounded-lg  py-2 px-2">
        <PostHeader post = {post} />
-        {
-           displayPosts()
-         }
+       <div className="py-1 px-2">
+            
+            <div className="bg-gray-400 w-[100%]  rounded-md ">
+            <img  src={mediaUrl} alt='picture ' 
+                   className="w-[100%] xs:h-[210px] sm:h-[310px]  max-h-[100%]  lg:h-[386px] object-cover rounded-md "
+                 />
+            </div>
+            <div className="py-1 px-4 w-[100%]">
+             <Link href={`/post/${post?.id}`}> <h1 className="font-semibold text-xl">{post?.metadata?.content  && truncatetext(post?.metadata?.content, 100)}</h1></Link>
+           </div>
+         </div>
          
          <PostCardFooter post = {post} />
     </div>

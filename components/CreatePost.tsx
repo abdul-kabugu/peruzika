@@ -4,26 +4,28 @@ import Image from 'next/image'
 import TextareaAutosize from 'react-textarea-autosize';
 import { FiPlus } from 'react-icons/fi';
 import { BiHash } from 'react-icons/bi';
-import { useCreatePost, useDisplayImage, useUploadMedia } from '../hooks/orbis-react';
 import {PINATA_GATEWAY, PINATA_KEY, PINATA_SECRET} from '../assets/constants'
-import {Orbis} from '@orbisclub/orbis-sdk'
-import { useSelector } from 'react-redux';
 import { CircleLoader } from 'react-spinners';
 import { RiImageAddFill } from 'react-icons/ri';
+import { useUploadToIPFS, useGetUserProfiles, usePublish } from '../hooks/lens-react';
+import { useDisplayImage } from '../hooks/orbis-react';
 
 export default function CreatePost() {
     const [postTxt, setpostTxt] = useState("")
    // const orbis = new Orbis()
     const [isAddMedia, setisAddMedia] = useState(false)
     const [postFile, setpostFile] = useState([])
-    const {orbis, user} = useSelector(state => state.user)
+   
     const [theData, settheData] = useState()
+    const {userProfiles, isUserProfileError, isUserProfilesLoading} = useGetUserProfiles()
+      console.log("the user profiles", userProfiles)
+    
     const toggleIsAddMedia = () => {
       isAddMedia ? setisAddMedia(false) : setisAddMedia(true)
     }
     const imgRef = useRef(null)
-    console.log("the user", user)
-      const pfpUrl = user?.details?.profile?.pfp?.replace("ipfs://", PINATA_GATEWAY)
+    
+      //const pfpUrl = user?.details?.profile?.pfp?.replace("ipfs://", PINATA_GATEWAY)
       const handleOpenInput = () => {
          imgRef.current.click()
       }
@@ -34,36 +36,21 @@ export default function CreatePost() {
       const { result, uploader } = useDisplayImage();
 
       //USE_CREATE_POST_HOOK
-      const {createPost, isCreating, isCreated, error, isError} = useCreatePost()
+      const {publishPost, isPublishing} = usePublish()
      //  USE_UPLOAD  MEDIA HOOK
-     const {uploadFile, isUploading, isUploadingError, uploadingError, uploadedFile} = useUploadMedia()
-      
-    
+     const {uploadToIpfs, isUploading, isUploadingError, fileCID} = useUploadToIPFS()
 
-
-    const postMetadata = {
-      body : postTxt, 
-      media : [uploadedFile],
-      context : "peruzi10",
-      tags :[ {
-        slug : "peruzi testing",
-        title : 'peruzi testing'
-      }],
-    }
+   
+   
      
-      const  handleCreatingPost = async () => {
-         //const theFile =  await uploadFile(postFile)
-         let res = await orbis.uploadMedia(postFile);
-         console.log("the file", res)
-        const thePostRef = await createPost({
-          body : postTxt, 
-          media : [res.result],
-          context : "peruzi10",
-          tags :[ {
-            slug : "peruzi post",
-            title : 'peruzi post'
-          }],
-        })
+    const handleTestUpload = async () =>  {
+     const uploadedFile =  await uploadToIpfs(postFile)
+      console.log("the uploaded", uploadedFile)
+    }
+
+     const handlePublishPost = async () =>  {
+      const ipfsResult =  await uploadToIpfs(postFile) 
+        await publishPost(postTxt, `https://gateway.pinata.cloud/ipfs/${ipfsResult?.path}`)
      }
    
   
@@ -74,7 +61,7 @@ export default function CreatePost() {
          <div   className='ring-2 ring-purple-500 xs:w-9 xs:h-9 sm:w-10 h-10 md:w-12 md:h-12 flex items-center justify-center
            rounded-full
          '>
-         <img   src={   pfpUrl || "/img/peruzi.png"}  alt="user" 
+         <img   src={  "/img/peruzi.png"}  alt="user" 
            className=' xs:w-7 xs:h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full object-cover'  
          />
          </div>
@@ -130,10 +117,10 @@ export default function CreatePost() {
         <BiHash className='text-purple-800 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 cursor-pointer' />
          <div className='flex gap-4 py-3 items-center '>
            <p>{postTxt.length} / 300</p>
-            <button className='bg-purple-500 py-1 xs:px-3  rounded-lg font-semibold text-white sm:px-5 sm:py-1' onClick={() => handleCreatingPost()} disabled={! postTxt || ! postFile}>Post</button>
+            <button className='bg-purple-500 py-1 xs:px-3  rounded-lg font-semibold text-white sm:px-5 sm:py-1' onClick={() => handlePublishPost()} disabled={ ! postFile}>Post</button>
          </div>
       </div>
-       {isCreating   && <CircleLoader  /> }
+       {isPublishing   && <CircleLoader  /> }
     </div>
   )
 }

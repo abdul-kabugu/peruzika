@@ -5,12 +5,16 @@ import CreatePost from './CreatePost'
 import Post from './Post'
 import TestComponent from './TestComponent'
 import {useRouter} from "next/router"
- 
+import { useDiscoverFeeds } from '../hooks/lens-react'
+
+
 export default function Main({posts, postsError}) {
   const router = useRouter()
   const handleNavigateTcreatePost = () => {
      router.push("/create-post")
   }
+   
+    console.log("the psost", posts)
   return (
     <div className=' xs:w-[100vw] xs:h-screen sm:h-screen  sm:w-[470px] md:w-[500px] w-[600px] xl:w-[650px]
       overflow-y-scroll hide-scrollbar xs:mb-7 sm:mb-0
@@ -28,7 +32,7 @@ export default function Main({posts, postsError}) {
           <AiOutlinePlus className='w-9 h-9 text-purple-700' onClick = {handleNavigateTcreatePost}  />
         </div>
           <CreatePost  />
-           {posts?.map((post, i) => {
+           {posts?.explorePublications?.items.map((post, i) => {
 
             return(
               <Post key={i} post = {post}     />

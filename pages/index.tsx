@@ -7,10 +7,11 @@ import {useEffect, useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {setUser, setOrbisObject} from '../redux/userSlice'
 import {PINATA_GATEWAY, PINATA_KEY, PINATA_SECRET} from '../assets/constants'
+import { useDiscoverFeeds } from '../hooks/lens-react'
 
-export default function Home({posts, PostsError}) {
-    const [isDispacteched, setisDispacteched] = useState(false)
-    const orbis = new Orbis({
+export default function Home() {
+    /*const [isDispacteched, setisDispacteched] = useState(false)
+   const orbis = new Orbis({
       PINATA_GATEWAY: PINATA_GATEWAY,
       PINATA_API_KEY: PINATA_KEY,
       PINATA_SECRET_API_KEY: PINATA_SECRET
@@ -45,14 +46,14 @@ export default function Home({posts, PostsError}) {
     getConnectedUser()  
     console.log("the orbis", orbis)
     
-  }, [isDispacteched])
-
+  }, [isDispacteched])*/
+  const {posts, isPostsLoading, isPostsError} = useDiscoverFeeds()
   return (
     <div className='max-w-[1300px] mx-auto  '  >
       <TopNav   />
         <div className='flex gap-1 lg:px-5 lg:justify-center md:justify-center  sm:justify-center xl:justify-center '>
             <Sidebar />
-             <Main posts = {posts}  postsError = {PostsError} />
+             <Main posts = {posts}  postsError = {isPostsError} postsLoading = {isPostsLoading} />
               <TrendingBar />
         </div>
        
@@ -61,17 +62,19 @@ export default function Home({posts, PostsError}) {
   )
 }
 
-  export  async function getServerSideProps() {
-    const orbis = new Orbis()
+  /*export  async function getServerSideProps() {
+   /* const orbis = new Orbis()
     let { data, error } = await orbis.getPosts({
       context : "peruzi10",
       only_master : true
     });
+     const {posts, isPostsError} = useDiscoverFeeds()
 
     return {
       props : {
-        posts : data,
-        PostsError : error
+        posts : posts,
+        PostsError : isPostsError
       }
     }
   }
+*/

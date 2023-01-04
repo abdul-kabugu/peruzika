@@ -26,34 +26,29 @@ export default function PostCardFooter({post}) {
     const toggleIsShareModal = () => {
     isShareModal ?   setisShareModal(false) : setisShareModal(true)
     }
-       const  pfpUrl = post?.creator_details?.profile?.pfp?.replace("ipfs://", PINATA_GATEWAY)
-    useEffect(() => {
-      const getUserReactions =  async () => {
-        let { data, error } = await orbis.getReaction(post?.stream_id, user?.did);
-         setuserReactions(data)
-      }
-    }, [user])
+       const  pfpUrl = post?.profile?.picture?.original.url.replace("ipfs://", PINATA_GATEWAY)
+   
     
-    console.log("user reactions", userReactions)
 
-      const handleLike =  async () =>  {
+
+    /*  const handleLike =  async () =>  {
          if(isAuthenticated){
           let res = await context.react(
             post.stream_id,
             "like"
           );
          }
-      }
+      }*/
 
 
-      const handleStarPost =  async () =>  {
+    /*  const handleStarPost =  async () =>  {
         if(isAuthenticated){
          let res = await context.react(
            post.stream_id,
            "haha"
          );
         }
-     }
+     }*/
   return (
     <div className=' mt-2 relative'>
        {
@@ -96,7 +91,7 @@ export default function PostCardFooter({post}) {
            </div>
          }
         <div className='flex items-center gap-4 py-2 px-4 justify-between '>
-         <Link href={`/profile/${post?.creator}`}>  <div className='flex gap-2  items-center sm:hidden'>
+         <Link href={`/profile/${post?.profile?.handle}`}>  <div className='flex gap-2  items-center sm:hidden'>
               <div className='w-7 h-7 border border-purple-500 cursor-pointer rounded-full flex items-center justify-center ml-2'>
                 <img   src={ pfpUrl ||   'https://nftcoders.com/avatar/avatar-cool.svg'}  alt='logo'
                   className='rounded-full w-6 h-6 '
@@ -110,24 +105,24 @@ export default function PostCardFooter({post}) {
          </div>
          <div className='flex gap-2 items-center'>
          <AiOutlineComment className='w-5 h-5 cursor-pointer' />
-         {post?.count_replies ? <p>{post?.count_replies }</p> :
+         {post?.stats?.totalAmountOfComments? <p>{post?.stats?.totalAmountOfComments}</p> :
           <p className='xs:hidden sm:block'>comments</p>
           }
          </div>
 
          <div className='flex gap-2 items-center'>
-            <IoMdStarOutline className='w-5 h-5 cursor-pointer' onClick={handleStarPost} />
-          {post?.count_haha ? 
-          <p>{post?.count_haha}</p> :
-           <p className='xs:hidden sm:block'>Favourite</p>
+            <IoMdStarOutline className='w-5 h-5 cursor-pointer'  />
+          {post?.stats?.totalAmountOfCollects? 
+          <p>{post?.stats?.totalAmountOfCollects}</p> :
+           <p className='xs:hidden sm:block'>Collects</p>
         }
          </div>
 
          <div className='flex gap-2 items-center'>
-          <AiOutlineLike className='w-5 h-5 cursor-pointer' onClick={handleLike} />
-          {post?.count_likes ? 
-          <p>{post?.count_likes}</p> :
-          <p className='xs:hidden sm:block'>likes</p>
+          <AiOutlineLike className='w-5 h-5 cursor-pointer'  />
+          {post?.stats?.totalAmountOfMirrors ? 
+          <p>{post?.stats?.totalAmountOfMirrors}</p> :
+          <p className='xs:hidden sm:block'>Mirrors</p>
         }
           
          </div>
