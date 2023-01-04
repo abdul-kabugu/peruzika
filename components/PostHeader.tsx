@@ -7,15 +7,18 @@ import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { IoMdClose } from 'react-icons/io';
 import {PINATA_GATEWAY} from '../assets/constants'
+import { useGetUserProfiles } from '../hooks/lens-react';
+
 export default function PostHeader({post}) {
   const [isEditModal, setisEditModal] = useState(false)
-  // const {user} = useSelector(state => state.user)
-
+const {userProfiles, isUserProfilesLoading} = useGetUserProfiles()
+const userProfileId = userProfiles?.profiles?.items[0].handle
+  console.log("user profile", userProfileId)
      const toggleIsEditPostModal = () => {
       isEditModal ? setisEditModal(false) : setisEditModal(true)
      }
-  /*  const  getRightButtons  = () => {
-      if(post?.creator === user?.did){
+  const  getRightButtons  = () => {
+      if(userProfileId  && userProfileId === post?.profile?.handle){
         return(
           <div className='relative'>
           <HiOutlineDotsHorizontal className='cursor-pointer' onClick={toggleIsEditPostModal} />
@@ -38,7 +41,7 @@ export default function PostHeader({post}) {
               <HiOutlineDotsHorizontal className='cursor-pointer' />
         </div>
       )}
-    }*/
+    }
 
   const dateOptions = {
     timeZone: "UTC",
@@ -74,7 +77,7 @@ export default function PostHeader({post}) {
          </div>
         
           {
-           //getRightButtons()
+           getRightButtons()
           }
         
     </div>
