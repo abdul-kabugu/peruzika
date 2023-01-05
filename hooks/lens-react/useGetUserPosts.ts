@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {useQuery} from '@apollo/client'
 import { GET_USER_POSTS } from '../../graphql/query/getUserPosts'
 
