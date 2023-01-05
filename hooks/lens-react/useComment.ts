@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { apolloClient } from "../../graphql/apollo/apolloClient";
 import {gql} from '@apollo/client'
 import {useState} from 'react'

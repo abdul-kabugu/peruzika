@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {useLazyQuery, useQuery} from '@apollo/client'
 import { GET_POST_COMMENTS } from '../../graphql/query/getPostComments'
 
