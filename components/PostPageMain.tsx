@@ -12,10 +12,11 @@ import Comments from './Comments'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { PINATA_GATEWAY } from '../assets/constants'
+import { useCreateComment } from '../hooks/lens-react'
 
-export default function PostPageMain({post}) {
+export default function PostPageMain({post, postComments, isGetPostComentsLoading,  isGetPostCommentsError}) {
   const [decryptedPost, setdecryptedPost] = useState("")
-  const [isLoading, setisLoading] = useState(false)
+
   const [status, setstatus] = useState()
   const [isCommenting, setisCommenting] = useState(false)
   const [commentTxt, setcommentTxt] = useState("")
@@ -45,21 +46,14 @@ export default function PostPageMain({post}) {
     console.log("the context")
 }, [decryptedPost, user, user?.details?.hasLit])*/
 
-const dateOptions = {
-  timeZone: "UTC",
-  language: "en-US",
-  month: "short",
-  day: "numeric",
-  year: "numeric"
-};
 
 const options = {
   year: 'numeric',
   month: 'short',
   day: 'numeric'
 };
-const date = new Date(post?.createdAt * 1000);
-const humanReadableString = date.toLocaleString("en-US", dateOptions);
+
+
   const handleGoBack = () =>  {
     router.back()
   }
@@ -182,7 +176,11 @@ const humanReadableString = date.toLocaleString("en-US", dateOptions);
             )
           })}*/
   console.log("stream id", post)
+    const {createComment, isLoading, isError} = useCreateComment()
   const mediaUrl = post?.publication?.metadata.image.replace("ipfs://", PINATA_GATEWAY)
+    const handleComment = async () =>  {
+       await createComment()
+    }
   return (
     <div  className=' xs:w-[100vw] xs:h-screen sm:h-screen  sm:w-[470px] md:w-[500px] w-[600px] xl:w-[650px]
     overflow-y-scroll hide-scrollbar xs:mb-7 sm:mb-0 border-x border-gray-300 '>
@@ -222,14 +220,14 @@ const humanReadableString = date.toLocaleString("en-US", dateOptions);
                    className="focus:outline-none w-[100%]  border border-purple-300 rounded-md py-1 px-2 resize-none" 
                    placeholder='comment  to  this post'
                 />
-                 <button className='py-2 px-4 bg-purple-600 text-white  inline-block rounded-lg ml-auto' >
+                 <button className='py-2 px-4 bg-purple-600 text-white  inline-block rounded-lg ml-auto' onClick={() => createComment(commentTxt, post?.publication?.id)} >
                   {isCommenting ? <BeatLoader size={9} /> : "Comment" }
                 </button>
               </div>
 
                 <div className='mt-[10px] px-3'>
                   <h1 className='text-xl font-semibold mb-3'>Comments</h1>
-                   {/*} <Comments  post = {post} />*/}
+                   <Comments  post = {post} postComments = {postComments} isGetPostComentsLoading = {isGetPostComentsLoading}  />
                 </div>
     </div>
     

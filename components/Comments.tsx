@@ -2,12 +2,15 @@
 import {useState, useEffect, useContext} from 'react'
 import { AiOutlineDatabase } from 'react-icons/ai'
 import OrbisProvider from '../context/orbisProvider'
+import { useCreateComment } from '../hooks/lens-react'
 import CommentCard from './CommentCard'
 
-export default function Comments({post}) {
-    const [postComments, setpostComments] = useState()
-    const [isCommentsLoading, setisCommentsLoading] = useState(false)
-    const context = useContext(OrbisProvider)
+export default function Comments({post, postComments}) {
+    //const [postComments, setpostComments] = useState("")
+    //const [isCommentsLoading, setisCommentsLoading] = useState(false)
+    const {createComment, isError, isLoading} = useCreateComment()
+
+    /*const context = useContext(OrbisProvider)
 
       useEffect(() => {
          const fetchPostsComments = async () => {
@@ -20,9 +23,9 @@ export default function Comments({post}) {
           
     }
       fetchPostsComments()
-      }, [])
+      }, [])  /*/
 
-       if(isCommentsLoading){
+      /* if(isCommentsLoading){
         return(
           <div>
             <h1>Loading ..</h1>
@@ -37,11 +40,11 @@ export default function Comments({post}) {
             <p>No  comments  at moment</p>
           </div>
         )
-      }
-      
+      }*/
+        console.log("the post comments", postComments)
   return (
     <div>
-        {postComments?.map((comment, i ) =>  {
+        {postComments?.publications?.items.map((comment, i ) =>  {
 
             return(
                 <CommentCard key={i}  comment = {comment} />

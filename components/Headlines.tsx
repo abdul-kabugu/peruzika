@@ -2,25 +2,29 @@
 import {useState, useEffect, useContext} from 'react'
 import {fakeHeadlines}  from '../assets/fakeHeadlines'
 import OrbisProvider from '../context/orbisProvider'
+import { useDiscoverFeeds } from '../hooks/lens-react'
 import HeadlineCard from './HeadlineCard'
 
 export default function Headlines() {
   const [trendingNews, settrendingNews] = useState()
+  const {posts, isPostsLoading, isPostsError} = useDiscoverFeeds()
+   console.log('trending posts', posts)
   const context = useContext(OrbisProvider)
-   useEffect(() => {
+   /*useEffect(() => {
      const fetchTrendingNews = async () =>  {
       let { data, error } = await context.getPosts({
         context : "peruzi10",
         only_master : true,
         //algorithm : "recommendations"
       });
-      const trendingData =  data?.slice(0, 10)
+      const trendingData =  posts?.explorePublications?.items?.slice(0, 10)
       settrendingNews(trendingData)
      }
      fetchTrendingNews()
    }, [])
-   console.log("the trending  news is here", trendingNews)
+   console.log("the trending  news is here", trendingNews)*/
 
+   const trendingData =  posts?.explorePublications?.items?.slice(0, 10)
      
      
   return (
@@ -33,7 +37,7 @@ export default function Headlines() {
         </div>
 
          <div>
-            {trendingNews?.map((news, i) => {
+            {trendingData?.map((news, i) => {
 
                 return(
                     <HeadlineCard key={i} news = {news} />

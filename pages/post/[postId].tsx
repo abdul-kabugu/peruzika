@@ -1,12 +1,13 @@
 // @ts-nocheck
 import  { useContext, useEffect, useState } from 'react'
-import { PostPageMain, RelatePosts, Sidebar, TopNav } from '../../components'
+import { PostPageMain, RelatePosts, Sidebar, TopNav, TrendingBar } from '../../components'
 import OrbisProvider from '../../context/orbisProvider'
 import {Orbis} from '@orbisclub/orbis-sdk'
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser, setOrbisObject } from '../../redux/userSlice'
 import { useGetPostDetails } from '../../hooks/lens-react/useGetPostDetails'
 import { useRouter } from 'next/router'
+import { useGetPostComments } from '../../hooks/lens-react'
 
 export default function PostPage({postId}) {
  /* console.log("the post details", postDetails)
@@ -35,7 +36,9 @@ getConnectedUser()
     const router = useRouter()
     const {id} = router.query
     const {postDetails, isPostDetailsError, isPostDetailsLoading} = useGetPostDetails(postId) 
-    console.log("the returned id", postId)
+    const {postComments, isGetPostComentsLoading, isGetPostCommentsError} = useGetPostComments(postId)
+     
+    console.log("the returned id", postComments)
      console.log("post full", postDetails)
   return (
     <div>
@@ -44,9 +47,11 @@ getConnectedUser()
    <div className='flex sm:justify-center  hide-scrollbar '>
       <Sidebar  />
       
-        <PostPageMain post = {postDetails}  />
+        <PostPageMain post = {postDetails} postComments = {postComments} isGetPostComentsLoading = {isGetPostComentsLoading}
+        isGetPostCommentsError = {isGetPostCommentsError}   
+  />
         
-       {/*} <RelatePosts post = {postDetails} />*/}
+         <TrendingBar  />
         </div>
   </div>
     </div>
