@@ -4,9 +4,11 @@ import { AiOutlineUser } from 'react-icons/ai'
 import { BiLoader } from 'react-icons/bi'
 import { HiOutlineMail } from 'react-icons/hi'
 import { useSelector } from 'react-redux'
+import { useAccount } from 'wagmi'
 import {PINATA_GATEWAY} from '../assets/constants'
-import OrbisProvider from '../context/orbisProvider'
+
 import { useGetUserProfileInfo } from '../hooks/lens-react'
+
 import Post from './Post'
 import UserPost from './UserPost'
 
@@ -15,8 +17,7 @@ export default function UserIdMain({userDetails, userPosts, userAccount }) {
   const [isFollowing, setisFollowing] = useState(false)
   const [isFollowLoading, setisFollowLoading] = useState(false)
     console.log("the user informatin", userPosts)
-   const {user, isAuthenticated} = useSelector(state => state.user)
-    const context = useContext(OrbisProvider)
+   
 
       /* useEffect(() => {
         const isUserFollowing =  async () => {
@@ -43,7 +44,7 @@ export default function UserIdMain({userDetails, userPosts, userAccount }) {
             setisFollowLoading(false)
            }*/
           //  console.log("is following  information", isFollowing)
-    
+          const {address} = useAccount()
     const  pfpUrl = userDetails?.profile?.picture?.original.url.replace("ipfs://", PINATA_GATEWAY)
       console.log('the user profile data', userDetails)
       console.log('the user posts data', userPosts)
@@ -81,22 +82,22 @@ export default function UserIdMain({userDetails, userPosts, userAccount }) {
                     {/*} <div className='bg-purple-600 w-[40px] h-[40px] rounded-full flex items-center justify-center cursor-pointer' >
                          <HiOutlineMail className='w-7 h-7 text-white'  />
   </div>*/}
-                     {/*
-                      isAuthenticated && !isFollowing ? (
-                        <button className='bg-purple-600 text-white py-2 px-4 rounded-lg' disabled ={!isAuthenticated} onClick ={handleFollow}>
+                     {
+                      userDetails && ! userDetails?.profile?.ownedBy === address ? (
+                        <button className='bg-purple-600 text-white py-2 px-4 rounded-lg' disabled ={!userDetails} onClick ={handleFollow}>
                         {isFollowLoading? <BiLoader size={9} /> : "Follow"}
                         </button> 
                       ) : (
-                        <button className='bg-purple-600 text-white py-2 px-4 rounded-lg' disabled ={!isAuthenticated}>
+                        <button className='bg-purple-600 text-white py-2 px-4 rounded-lg' disabled ={!userDetails}>
                         {isFollowing ? "Following" : "Follow"}
                         </button>
-                      )
-                     */}
+                      )}
+                    
                       
                  </div>
            </div>
         </div>
-          <div className='mt-[65px]'>
+          <div className='mt-[85px]'>
           {userPosts?.publications?.items.map((post, i) =>  {
 
             return(

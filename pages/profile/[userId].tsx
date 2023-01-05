@@ -1,11 +1,11 @@
 // @ts-nocheck
 import {useState, useEffect, useContext} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {Orbis} from '@orbisclub/orbis-sdk'
+
 import UserBanner from '../../components/UserBanner'
 import { TopNav, Sidebar, ProfileMain, TrendingBar, UserIdMain } from '../../components'
 import UserStats from '../../components/UserStats'
-import OrbisProvider from '../../context/orbisProvider'
+
 import { setUser } from '../../redux/userSlice'
 import { useGetUserProfileInfo, useGetUserPosts } from '../../hooks/lens-react'
 
@@ -13,8 +13,7 @@ import { useGetUserProfileInfo, useGetUserPosts } from '../../hooks/lens-react'
 function UserDetails({userId}) {
  const [isGetUserLoading, setisGetUserLoading] = useState(false)
  // console.log("the user details from  user details page", userDetails)
-  const {user} = useSelector(state => state.user)
-   const context = useContext(OrbisProvider)
+
   // const dispatch = useDispatch()
     //console.log("the user from  user id", user)
 
@@ -55,7 +54,7 @@ export default UserDetails
 
 
 export const  getServerSideProps = async (context) => {
-  let orbis = new Orbis();
+ 
       const  {params} = context
       const {userId} = params
     
