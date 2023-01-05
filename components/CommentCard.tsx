@@ -12,7 +12,7 @@ export default function CommentCard({comment}) {
       };
       const date = new Date(comment.timestamp * 1000);
       const humanReadableString = date.toLocaleString("en-US", dateOptions);
-    const pfpUrl = comment.creator_details.profile.pfp.replace("ipfs://", PINATA_GATEWAY)
+     const  pfpUrl = post?.profile?.picture?.original.url.replace("ipfs://", PINATA_GATEWAY)
 
   return (
     <div className='mb-3'>

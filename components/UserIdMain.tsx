@@ -6,7 +6,9 @@ import { HiOutlineMail } from 'react-icons/hi'
 import { useSelector } from 'react-redux'
 import {PINATA_GATEWAY} from '../assets/constants'
 import OrbisProvider from '../context/orbisProvider'
+import { useGetUserProfileInfo } from '../hooks/lens-react'
 import Post from './Post'
+import UserPost from './UserPost'
 
   
 export default function UserIdMain({userDetails, userPosts, userAccount }) {
@@ -15,8 +17,8 @@ export default function UserIdMain({userDetails, userPosts, userAccount }) {
     console.log("the user informatin", userPosts)
    const {user, isAuthenticated} = useSelector(state => state.user)
     const context = useContext(OrbisProvider)
-   
-       useEffect(() => {
+
+      /* useEffect(() => {
         const isUserFollowing =  async () => {
          if(isAuthenticated){
           let { data, error } = await context.getIsFollowing(
@@ -26,9 +28,9 @@ export default function UserIdMain({userDetails, userPosts, userAccount }) {
           setisFollowing(data)
          }}
          isUserFollowing()
-       }, [isFollowing, user])
+       }, [isFollowing, user]) /*/
 
-         const handleFollow =  async () => {
+       /*  const handleFollow =  async () => {
           setisFollowLoading(true)
           let res = await context.setFollow(userDetails?.details?.did, true);
           setisFollowLoading(false)
@@ -39,9 +41,12 @@ export default function UserIdMain({userDetails, userPosts, userAccount }) {
             setisFollowLoading(true)
             let res = await context.setFollow(userDetails?.details?.did, false);
             setisFollowLoading(false)
-           }
-            console.log("is following  information", isFollowing)
-     const pfpUrl = userDetails.details?.profile?.pfp.replace("ipfs://", PINATA_GATEWAY)
+           }*/
+          //  console.log("is following  information", isFollowing)
+    
+    const  pfpUrl = userDetails?.profile?.picture?.original.url.replace("ipfs://", PINATA_GATEWAY)
+      console.log('the user profile data', userDetails)
+      console.log('the user posts data', userPosts)
   return (
     <div className='xs:w-[100vw] xs:h-screen sm:h-screen  sm:w-[470px] md:w-[500px] w-[600px] xl:w-[650px]
     overflow-y-scroll xs:mb-[58px] hide-scrollbar sm:mb-0 '>
@@ -55,18 +60,18 @@ export default function UserIdMain({userDetails, userPosts, userAccount }) {
                 <img  src={pfpUrl || "/img/peruzi.png"}  className="max-w-[105px] max-h-[105px] rounded-lg"   />
               </div>
               <div className='mt-9 '>
-              <h1 className='font-semibold text-xl'>{userDetails?.details?.profile?.username || "-"}</h1>
-               <div className='flex gap-4 xs:gap-2'>
+              <h1 className='font-semibold text-xl'>{userDetails?.profile?.handle || "-"}</h1>
+               <div className='flex gap-6 xs:gap-2'>
                   <div className='flex items-center gap-2'>
-                         <h3  className='font-bold text-lg'>{userDetails.count_followers || "-"}</h3>
+                         <h3  className='font-bold text-lg'>{userDetails?.profile?.stats?.totalFollowers || "-"}</h3>
                        <h2>FolLowers</h2>
                   </div>
                   <div className='flex items-center gap-2'>
-                         <h3 className='font-bold text-lg'>{userDetails.count_following || "-"}</h3>
+                         <h3 className='font-bold text-lg'>{userDetails?.profile?.stats?.totalFollowing || "-"}</h3>
                        <h2>Following</h2>
                   </div>
-                  <div className='flex items-center gap-2 xs:hidden xl:flex '>
-                         <h3 className='font-bold text-lg'>{userPosts.length || "-"}</h3>
+                  <div className='flex items-center gap-2  '>
+                         <h3 className='font-bold text-lg'>{userDetails?.profile?.stats?.totalPosts || "-"}</h3>
                        <h2>Posts</h2>
                   </div>
                </div>
@@ -76,7 +81,7 @@ export default function UserIdMain({userDetails, userPosts, userAccount }) {
                     {/*} <div className='bg-purple-600 w-[40px] h-[40px] rounded-full flex items-center justify-center cursor-pointer' >
                          <HiOutlineMail className='w-7 h-7 text-white'  />
   </div>*/}
-                     {
+                     {/*
                       isAuthenticated && !isFollowing ? (
                         <button className='bg-purple-600 text-white py-2 px-4 rounded-lg' disabled ={!isAuthenticated} onClick ={handleFollow}>
                         {isFollowLoading? <BiLoader size={9} /> : "Follow"}
@@ -86,16 +91,17 @@ export default function UserIdMain({userDetails, userPosts, userAccount }) {
                         {isFollowing ? "Following" : "Follow"}
                         </button>
                       )
-                     }
+                     */}
                       
                  </div>
            </div>
         </div>
           <div className='mt-[65px]'>
-          {userPosts?.map((post, i) =>  {
+          {userPosts?.publications?.items.map((post, i) =>  {
 
             return(
-           <Post  key={i} post = {post} />
+              <Post  key={i} post = {post} />
+          
              )
             })}
           </div>
@@ -103,3 +109,6 @@ export default function UserIdMain({userDetails, userPosts, userAccount }) {
     </div>
   )
 }
+
+
+ {/*<Post  key={i} post = {post} />*/}

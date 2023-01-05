@@ -9,9 +9,11 @@ import PostHeader from "./PostHeader"
 import {PINATA_GATEWAY, PINATA_KEY, PINATA_SECRET} from '../assets/constants'
 import { truncatetext } from "../hooks/useSubstring"
 import Link from "next/link"
+import UserPostHeader from "./UserPostCardHeader"
+import UserPostCardFooter from "./UserPostCardFooter"
 
 
-export default function Post({post}) {
+export default function UserPost({post}) {
   
      
 
@@ -140,7 +142,7 @@ export default function Post({post}) {
                const mediaUrl = post?.metadata?.image.replace("ipfs://", PINATA_GATEWAY)
   return (
     <div className="w-[100%] border border-gray-300 my-2  rounded-lg  py-2 px-2">
-       <PostHeader post = {post} />
+       <UserPostHeader post = {post} />
        <div className="py-1 px-2">
             
             <div className="bg-gray-400 w-[100%]  rounded-md ">
@@ -153,7 +155,7 @@ export default function Post({post}) {
            </div>
          </div>
          
-         <PostCardFooter post = {post} />
+         <UserPostCardFooter post = {post} />
     </div>
   )
 }

@@ -11,6 +11,8 @@ import { BeatLoader } from 'react-spinners'
 import Comments from './Comments'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
+import { PINATA_GATEWAY } from '../assets/constants'
+
 export default function PostPageMain({post}) {
   const [decryptedPost, setdecryptedPost] = useState("")
   const [isLoading, setisLoading] = useState(false)
@@ -20,7 +22,7 @@ export default function PostPageMain({post}) {
   const context = useContext(OrbisProvider)
   const {user} = useSelector(state => state.user)
    const router = useRouter()
-  useEffect(() => {
+ /* useEffect(() => {
     // decrypt  post
   
    
@@ -41,7 +43,7 @@ export default function PostPageMain({post}) {
 
     decryptPosts()
     console.log("the context")
-}, [decryptedPost, user, user?.details?.hasLit])
+}, [decryptedPost, user, user?.details?.hasLit])*/
 
 const dateOptions = {
   timeZone: "UTC",
@@ -50,7 +52,13 @@ const dateOptions = {
   day: "numeric",
   year: "numeric"
 };
-const date = new Date(post.timestamp * 1000);
+
+const options = {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric'
+};
+const date = new Date(post?.createdAt * 1000);
 const humanReadableString = date.toLocaleString("en-US", dateOptions);
   const handleGoBack = () =>  {
     router.back()
@@ -59,7 +67,7 @@ const humanReadableString = date.toLocaleString("en-US", dateOptions);
   const handleBuyMembership = (url) =>  {
     window.open(url, "_blank")
   }
-const  displayPosts  = () =>  {
+/*const  displayPosts  = () =>  {
   if(!("title" in post?.content)){
     return(
       <div className="py-1 px-2">
@@ -153,18 +161,28 @@ const  displayPosts  = () =>  {
     )
   }
  
-}
+}*/
 
-const  handleComment  =  async () => {
+/*const  handleComment  =  async () => {
   setisCommenting(true)
   let res = await context.createPost({
     body : commentTxt,
     master :  post.stream_id
   });
   setisCommenting(false)
-}
+}*/
 
-  console.log("stream id", post?.content?.body)
+/*
+ {post?.content?.media?.map((img, i) => {
+            const imgUrl = img.url?.replace("ipfs://", `${img.gateway}`)
+            return(
+            <img key={i} src={imgUrl} alt='picture ' 
+              className="w-[100%] xs:h-[210px] sm:h-[310px]  max-h-[100%]  lg:h-[386px] object-cover rounded-md "
+            />
+            )
+          })}*/
+  console.log("stream id", post)
+  const mediaUrl = post?.publication?.metadata.image.replace("ipfs://", PINATA_GATEWAY)
   return (
     <div  className=' xs:w-[100vw] xs:h-screen sm:h-screen  sm:w-[470px] md:w-[500px] w-[600px] xl:w-[650px]
     overflow-y-scroll hide-scrollbar xs:mb-7 sm:mb-0 border-x border-gray-300 '>
@@ -175,7 +193,24 @@ const  handleComment  =  async () => {
              </div>
               
           </div>
-          <div>{displayPosts()}</div>
+          {/*displayPosts()*/}
+          <div className="py-1 px-2">
+             <div className="py-1 px-4 w-[100%] mb-2">
+    <h1 className="font-semibold text-3xl font-sans">{post?.publication?.metadata?.content  && truncatetext(post?.publication?.metadata?.content, 100)}</h1>
+      </div>
+        <div className='px-5 mb-3'>
+          <h2>{post  &&  new Intl.DateTimeFormat('en-US', options).format(new Date(post?.publication?.createdAt))}</h2>
+        </div>
+       <div className="bg-gray-400 w-[100%]  rounded-md ">
+       <img  src={mediaUrl} alt='picture ' 
+              className="w-[100%] xs:h-[210px] sm:h-[310px]  max-h-[100%]  lg:h-[386px] object-cover rounded-md "
+            />
+       </div>
+       <div className='px-2 py-2'>
+            <p className='text-lg font-serif'>{post?.publication?.metadata?.description}</p>
+          </div>
+    </div>
+          
             <PostCardFooter  post={post}  />
              
               <div className='px-3 w-[100%] flex flex-col gap-2'>
@@ -187,15 +222,16 @@ const  handleComment  =  async () => {
                    className="focus:outline-none w-[100%]  border border-purple-300 rounded-md py-1 px-2 resize-none" 
                    placeholder='comment  to  this post'
                 />
-                 <button className='py-2 px-4 bg-purple-600 text-white  inline-block rounded-lg ml-auto' onClick={handleComment}>
+                 <button className='py-2 px-4 bg-purple-600 text-white  inline-block rounded-lg ml-auto' >
                   {isCommenting ? <BeatLoader size={9} /> : "Comment" }
                 </button>
               </div>
 
                 <div className='mt-[10px] px-3'>
                   <h1 className='text-xl font-semibold mb-3'>Comments</h1>
-                    <Comments  post = {post} />
+                   {/*} <Comments  post = {post} />*/}
                 </div>
     </div>
+    
   )
 }

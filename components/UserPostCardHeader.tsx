@@ -9,7 +9,7 @@ import { IoMdClose } from 'react-icons/io';
 import {PINATA_GATEWAY} from '../assets/constants'
 import { useGetUserProfiles } from '../hooks/lens-react';
 
-export default function PostHeader({post}) {
+export default function UserPostHeader({post}) {
   const [isEditModal, setisEditModal] = useState(false)
 const {userProfiles, isUserProfilesLoading} = useGetUserProfiles()
 const userProfileId = userProfiles?.profiles?.items[0].handle

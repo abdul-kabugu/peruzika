@@ -17,7 +17,7 @@ import WhatsappShareButton from 'react-share/lib/WhatsappShareButton'
 import { PINATA_GATEWAY } from '../assets/constants'
 import OrbisProvider from '../context/orbisProvider'
 
-export default function PostCardFooter({post}) {
+export default function UserPostCardFooter({post}) {
   const [isShareModal, setisShareModal] = useState(false)
   const [userReactions, setuserReactions] = useState()
       const shareUrl  = `https://peruzi.vercel.app/${post?.id}`       //"peruzi.xyz"

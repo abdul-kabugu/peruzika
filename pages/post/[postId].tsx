@@ -5,9 +5,11 @@ import OrbisProvider from '../../context/orbisProvider'
 import {Orbis} from '@orbisclub/orbis-sdk'
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser, setOrbisObject } from '../../redux/userSlice'
+import { useGetPostDetails } from '../../hooks/lens-react/useGetPostDetails'
+import { useRouter } from 'next/router'
 
-export default function PostPage({ postDetails}) {
-  console.log("the post details", postDetails)
+export default function PostPage({postId}) {
+ /* console.log("the post details", postDetails)
   const orbis = useContext(OrbisProvider)
    const dispatch =  useDispatch()
  useEffect(() => {
@@ -29,9 +31,12 @@ getConnectedUser()
 }
 
     getConnectedAccount()
- }, [])
- 
-     
+ }, []) /*/
+    const router = useRouter()
+    const {id} = router.query
+    const {postDetails, isPostDetailsError, isPostDetailsLoading} = useGetPostDetails(postId) 
+    console.log("the returned id", postId)
+     console.log("post full", postDetails)
   return (
     <div>
         <div className='max-w-[1300px] h-screen mx-auto'>
@@ -41,7 +46,7 @@ getConnectedUser()
       
         <PostPageMain post = {postDetails}  />
         
-        <RelatePosts post = {postDetails} />
+       {/*} <RelatePosts post = {postDetails} />*/}
         </div>
   </div>
     </div>
@@ -49,14 +54,14 @@ getConnectedUser()
 }
 
 export const  getServerSideProps = async (context) => {
-  let orbis = new Orbis();
+
       const  {params} = context
       const {postId} = params
-     let { data, error } = await orbis.getPost(postId);
+   
     return {
       props : {
-        postDetails : data,
-         postDetailsEror : error,
+        postId : postId,
+     
        
       }
     }
