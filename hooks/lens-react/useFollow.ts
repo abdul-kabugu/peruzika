@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {gql} from '@apollo/client'
 import {signText, splitSignature, signedTypeData} from '../../utils/ether-service'
 import {useAccount} from "wagmi"

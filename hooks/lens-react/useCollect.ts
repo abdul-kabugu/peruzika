@@ -1,8 +1,9 @@
+// @ts-nocheck
 import {gql} from '@apollo/client'
 import {signText, splitSignature, signedTypeData} from '../../utils/ether-service'
 import {useAccount} from "wagmi"
 import {lensHub} from '../../utils/lens-hub'
-import {v4 as uuidv4} from 'uuid'
+
 import {useState} from 'react'
 import { apolloClient } from '../../graphql/apollo/apolloClient'
 import { useGetUserProfiles } from './useGetUserProfiles'
