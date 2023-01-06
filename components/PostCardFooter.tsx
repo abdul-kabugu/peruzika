@@ -2,9 +2,9 @@
 
 import Link from 'next/link'
 import {useState, useContext, useEffect} from 'react'
-import { AiOutlineClose, AiOutlineComment, AiOutlineLike } from 'react-icons/ai'
+import { AiOutlineClose, AiOutlineComment, AiOutlineLike, AiOutlineRetweet } from 'react-icons/ai'
 import { BiUserPlus } from 'react-icons/bi'
-import { HiOutlineDotsHorizontal, HiOutlineShare } from 'react-icons/hi'
+import { HiOutlineCollection, HiOutlineDotsHorizontal, HiOutlineShare } from 'react-icons/hi'
 import { IoMdStarOutline } from 'react-icons/io'
 import { useSelector } from 'react-redux'
 import {TwitterIcon, TwitterShareButton, fac} from 'react-share'
@@ -15,14 +15,15 @@ import RedditShareButton from 'react-share/lib/RedditShareButton'
 import WhatsappIcon from 'react-share/lib/WhatsappIcon'
 import WhatsappShareButton from 'react-share/lib/WhatsappShareButton'
 import { PINATA_GATEWAY } from '../assets/constants'
-import OrbisProvider from '../context/orbisProvider'
+import useCollect from '../hooks/lens-react/useCollect'
+
 
 export default function PostCardFooter({post}) {
   const [isShareModal, setisShareModal] = useState(false)
   const [userReactions, setuserReactions] = useState()
-      const shareUrl  = `https://peruzi.vercel.app/${post?.id}`       //"peruzi.xyz"
-      const context = useContext(OrbisProvider)
-      const {isAuthenticated, user} = useSelector(state => state.user)
+      const shareUrl  = `https://peruzika.vercel.app/${post?.publication?.id}`       //"peruzi.xyz"
+       console.log("post from footer", post)
+     const {collecPublication, isCollecting} = useCollect()
     const toggleIsShareModal = () => {
     isShareModal ?   setisShareModal(false) : setisShareModal(true)
     }
@@ -110,8 +111,8 @@ export default function PostCardFooter({post}) {
           }
          </div>
 
-         <div className='flex gap-2 items-center'>
-            <IoMdStarOutline className='w-5 h-5 cursor-pointer'  />
+         <div className='flex gap-2 items-center cursor-pointer' onClick={() => collecPublication(post?.publication?.id)}>
+            <HiOutlineCollection className='w-5 h-5 cursor-pointer'  />
           {post?.stats?.totalAmountOfCollects? 
           <p>{post?.stats?.totalAmountOfCollects}</p> :
            <p className='xs:hidden sm:block'>Collects</p>
@@ -119,7 +120,7 @@ export default function PostCardFooter({post}) {
          </div>
 
          <div className='flex gap-2 items-center'>
-          <AiOutlineLike className='w-5 h-5 cursor-pointer'  />
+          <AiOutlineRetweet className='w-5 h-5 cursor-pointer'  />
           {post?.stats?.totalAmountOfMirrors ? 
           <p>{post?.stats?.totalAmountOfMirrors}</p> :
           <p className='xs:hidden sm:block'>Mirrors</p>

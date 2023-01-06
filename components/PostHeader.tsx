@@ -7,11 +7,12 @@ import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { IoMdClose } from 'react-icons/io';
 import {PINATA_GATEWAY} from '../assets/constants'
-import { useGetUserProfiles } from '../hooks/lens-react';
+import { useFollow, useGetUserProfiles } from '../hooks/lens-react';
 
 export default function PostHeader({post}) {
   const [isEditModal, setisEditModal] = useState(false)
 const {userProfiles, isUserProfilesLoading} = useGetUserProfiles()
+const {followUser, isLoading, isError} = useFollow()
 const userProfileId = userProfiles?.profiles?.items[0].handle
   console.log("user profile", userProfileId)
      const toggleIsEditPostModal = () => {
@@ -37,27 +38,20 @@ const userProfileId = userProfiles?.profiles?.items[0].handle
       }else  {
         return(
         <div className='flex items-center gap-2'>
-           <button className='py-1 px-3 border border-purple-500 rounded-lg'>Follow </button>
+           <button className='py-1 px-3 border border-purple-500 rounded-lg' onClick={followUser}>Follow </button>
               <HiOutlineDotsHorizontal className='cursor-pointer' />
         </div>
       )}
     }
 
-  const dateOptions = {
-    timeZone: "UTC",
-    language: "en-US",
-    month: "short",
-    day: "numeric",
-    year: "numeric"
-  };
+ 
 
   const options = {
     year: 'numeric',
     month: 'short',
     day: 'numeric'
   };
-  const date = new Date(post.createdAt * 1000);
-  const humanReadableString = date.toLocaleString("en-US", dateOptions);
+
   const  pfpUrl = post?.profile?.picture?.original.url.replace("ipfs://", PINATA_GATEWAY)
   return (
     <div className='flex gap-1 justify-between items-center  mb-2 py-2 px-3 xs:hidden sm:flex '>

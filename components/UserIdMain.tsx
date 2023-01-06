@@ -6,17 +6,17 @@ import { HiOutlineMail } from 'react-icons/hi'
 import { useSelector } from 'react-redux'
 import { useAccount } from 'wagmi'
 import {PINATA_GATEWAY} from '../assets/constants'
-
-import { useGetUserProfileInfo } from '../hooks/lens-react'
+import { useFollow, useGetUserProfileInfo } from '../hooks/lens-react'
 
 import Post from './Post'
 import UserPost from './UserPost'
 
   
 export default function UserIdMain({userDetails, userPosts, userAccount }) {
-  const [isFollowing, setisFollowing] = useState(false)
-  const [isFollowLoading, setisFollowLoading] = useState(false)
-    console.log("the user informatin", userPosts)
+ // const [isFollowing, setisFollowing] = useState(false)
+ // const [isFollowLoading, setisFollowLoading] = useState(false)
+  const {followUser, isLoading} = useFollow()
+    console.log("the user informatin", userDetails)
    
 
       /* useEffect(() => {
@@ -85,11 +85,11 @@ export default function UserIdMain({userDetails, userPosts, userAccount }) {
                      {
                       userDetails && ! userDetails?.profile?.ownedBy === address ? (
                         <button className='bg-purple-600 text-white py-2 px-4 rounded-lg' disabled ={!userDetails} onClick ={handleFollow}>
-                        {isFollowLoading? <BiLoader size={9} /> : "Follow"}
+                        {isLoading? <BiLoader size={9} /> : "Following"}
                         </button> 
                       ) : (
-                        <button className='bg-purple-600 text-white py-2 px-4 rounded-lg' disabled ={!userDetails}>
-                        {isFollowing ? "Following" : "Follow"}
+                        <button className='bg-purple-600 text-white py-2 px-4 rounded-lg' disabled ={!userDetails} onClick = {followUser} >
+                        {isLoading ? "Following" : "Follow"}
                         </button>
                       )}
                     
