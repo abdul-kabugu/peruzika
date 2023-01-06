@@ -8,11 +8,12 @@ import { useGetUserPosts } from "./useGetUserPosts";
 import { useGetUserProfileInfo } from "./useGetUserProfile";
 import { useGetUserProfiles } from "./useGetUserProfiles";
 import useUploadToIPFS from "./useIPFSUpload";
+import useMirror from "./useMirror";
 import usePublish from "./usePublish";
 import useSignIn from "./useSignIn";
 
 export {
     useSignIn, useUploadToIPFS, useGetUserProfiles,usePublish, useDiscoverFeeds, 
     useGetUserProfileInfo, useGetUserPosts, useCreateComment, useGetPostComments, useFollow,
-    useCollect
+    useCollect, useMirror
 }

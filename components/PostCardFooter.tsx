@@ -15,15 +15,17 @@ import RedditShareButton from 'react-share/lib/RedditShareButton'
 import WhatsappIcon from 'react-share/lib/WhatsappIcon'
 import WhatsappShareButton from 'react-share/lib/WhatsappShareButton'
 import { PINATA_GATEWAY } from '../assets/constants'
+import { useMirror } from '../hooks/lens-react'
 import useCollect from '../hooks/lens-react/useCollect'
 
 
 export default function PostCardFooter({post}) {
   const [isShareModal, setisShareModal] = useState(false)
-  const [userReactions, setuserReactions] = useState()
-      const shareUrl  = `https://peruzika.vercel.app/${post?.publication?.id}`       //"peruzi.xyz"
-       console.log("post from footer", post)
+   console.log("the post from footer", post)
+      const shareUrl  = `https://peruzika.vercel.app/${post?.id}`       //"peruzi.xyz"
+      
      const {collecPublication, isCollecting} = useCollect()
+     const {mirrorPublications, isMirroring} = useMirror()
     const toggleIsShareModal = () => {
     isShareModal ?   setisShareModal(false) : setisShareModal(true)
     }
@@ -111,7 +113,7 @@ export default function PostCardFooter({post}) {
           }
          </div>
 
-         <div className='flex gap-2 items-center cursor-pointer' onClick={() => collecPublication(post?.publication?.id)}>
+         <div className='flex gap-2 items-center cursor-pointer' onClick={() => collecPublication(post?.id)}>
             <HiOutlineCollection className='w-5 h-5 cursor-pointer'  />
           {post?.stats?.totalAmountOfCollects? 
           <p>{post?.stats?.totalAmountOfCollects}</p> :
@@ -119,7 +121,7 @@ export default function PostCardFooter({post}) {
         }
          </div>
 
-         <div className='flex gap-2 items-center'>
+         <div className='flex gap-2 items-center cursor-pointer' onClick={() => mirrorPublications(post?.id)}>
           <AiOutlineRetweet className='w-5 h-5 cursor-pointer'  />
           {post?.stats?.totalAmountOfMirrors ? 
           <p>{post?.stats?.totalAmountOfMirrors}</p> :
