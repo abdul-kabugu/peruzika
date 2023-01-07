@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",
-    "@orbisclub/orbis-sdk": "^0.4.4-beta.41",
     "@reduxjs/toolkit": "^1.9.1",
     "@types/node": "18.11.10",
     "@types/react": "18.0.26",
