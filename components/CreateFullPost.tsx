@@ -13,6 +13,8 @@ import { setUser, setOrbisObject } from '../redux/userSlice';
 import { BiLoader } from 'react-icons/bi';
 import { BeatLoader } from 'react-spinners';
 import { useRouter } from 'next/router';
+import { truncatetext } from '../hooks/useSubstring';
+import { usePublish, useUploadToIPFS } from '../hooks/lens-react';
 
 
 export default function CreateFullPost() {
@@ -34,49 +36,14 @@ export default function CreateFullPost() {
     const [tokenAddress, settokenAddress] = useState(firstTokenAddress?.packageName )
     const [tokenBalance, settokenBalance] = useState("")
     const [purchaseUrl, setpurchaseUrl] = useState("")
-    const [isPublishing, setIsPublishing] = useState(false)
+   
     const router = useRouter()
     console.log("default token address", tokenAddress)
    const {result, uploader } = useDisplayImage()
      const handleGoBack = () =>  {
        router.back()
      }
-      const {user, orbis, isAuthenticated} = useSelector(state => state.user)
-       
-      const profileOrbis = new Orbis({
-        PINATA_GATEWAY: PINATA_GATEWAY,
-        PINATA_API_KEY: PINATA_KEY,
-        PINATA_SECRET_API_KEY: PINATA_SECRET
-    })
-    const dispatch = useDispatch()
-    const getSession = async () => {
-          const res = await profileOrbis.isConnected();
-           return res
-  }
-  
-   console.log("yuzooka", tokenAddress, "and", purchaseUrl, )
-   const  getConnectedUser = async () => {
-     const currentUser = await getSession()
-      dispatch(setUser({currentUser}))
-     dispatch(setOrbisObject(profileOrbis))
-      console.log("The get  session  is  re-running" )
-   }
-         
-  useEffect(() => {
       
-    getConnectedUser()  
-    
-
-    let orbis = new Orbis();
-    const fetchUserData = async () =>  {
-      let orbis = new Orbis();
-      let { data, error } = await orbis.getProfile(user.did);
-      setuserData(data)
-     }
-
-     fetchUserData()
-    
-  }, [isAuthenticated])
 
 
 
@@ -87,7 +54,7 @@ export default function CreateFullPost() {
       console.log("these are post  tags", postTags)
      const  addNewTag  = (event) =>  {
        if(event.key === 'Enter' && tagTxt && postTags.length < 5){
-       setpostTags([...postTags, {slug : tagTxt, title : tagTxt}])
+       setpostTags([...postTags, tagTxt])
          settagTxt("")
        }
      }
@@ -104,41 +71,15 @@ export default function CreateFullPost() {
     setpostTags([...postTags.filter(tags => postTags.indexOf(tags) !== index)])
    }
 
-      const handlePublish = async () =>  {
-        setIsPublishing(true)
-        let media = await orbis.uploadMedia(coverFile);
-          let postBody = {
-            body : postText,
-            title : postTitle,
-            context: "peruzi10",
-            tags : postTags,
-            media : [media.result],
-            data : {
-              purchaseUrl : purchaseUrl,
-            }
-           
+      
+       const {uploadToIpfs} = useUploadToIPFS()
+       const {publishPost, isPublishing} = usePublish()
+      const handlePublishPost = async () =>  {
+        const ipfsResult =  await uploadToIpfs(coverFile) 
+          await publishPost(postText, `https://gateway.pinata.cloud/ipfs/${ipfsResult?.path}`, postTags)
+       }
 
-          }
-
-         const  encryptionRules = {
-            type : "token-gated",
-            chain : rulesChain,
-            contractType : tokenType,
-            contractAddress :  tokenAddress,
-            minTokenBalance : tokenBalance,
-
-          }
-           if(tokenAddress && tokenBalance){
-            let res = await orbis.createPost(postBody, encryptionRules)
-           }else {
-            let res = await orbis.createPost(postBody)
-           }
-
-           
-        
-        setIsPublishing(false)
-       
-      }
+         console.log("the post  tags", postTags)
   return (
     <div className='w-[100%] h-screen border overflow-y-scroll  hide-scrollbar '>
        <div className='flex justify-between  xs:flex-col '>
@@ -168,7 +109,7 @@ export default function CreateFullPost() {
                         <div key={i} className='flex items-center py-1 xs:px-2 xs:min-w-[50px] rounded-lg bg-purple-600
                           text-white flex-wrap gap-2 xs:mr-2 xs:mb-2
                         '>
-                          <p>{tag.title}</p>
+                          <p>{tag}</p>
                            <AiOutlineClose className='cursor-pointer'
                              onClick={() => removeTag(i)}
                            />
@@ -197,7 +138,7 @@ export default function CreateFullPost() {
                    <p className='font-semibold text-lg'>Post</p>
              </div>
             <div className='flex xs:gap-4 items-center'>
-              <button className='py-1 px-2 border border-gray-300 rounded-sm ' onClick={handlePublish}>
+              <button className='py-1 px-2 border border-gray-300 rounded-sm ' onClick={handlePublishPost}>
                  {isPublishing ? <BeatLoader size={9}  /> : "Publish"}
               </button>
                <div className='rounded-2xl flex items-center justify-center w-10 h-9 border border-gray-300 cursor-pointer'
@@ -218,7 +159,7 @@ export default function CreateFullPost() {
         <p className='capitalize py-1 text-gray-400'>The title  of  your post</p>
          <div className='w-[100%] border border-purple-300 rounded-md min-h-[40px] flex items-center
            px-2 text-lg
-         '>{postTitle}</div>
+         '>{  postText && truncatetext(postText, 100)}</div>
 
 <h4 className='capitalize text-xl font-semibold'>tags</h4>
         <p className='capitalize py-1 text-gray-400'>The tags  of  your post</p>
@@ -255,7 +196,7 @@ export default function CreateFullPost() {
             }
           
          </div>
-
+          {/*
          <h4 className='capitalize text-xl font-semibold'>encryption Rules</h4>
         <p className='capitalize py-1 text-gray-400'>If this is set, your post wil be token gated  based on  rules you set</p>
           

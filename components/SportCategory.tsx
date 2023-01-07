@@ -1,32 +1,15 @@
 // @ts-nocheck
+import { useQuery } from '@apollo/client'
 import {useState, useEffect, useContext} from 'react'
-import OrbisProvider from '../context/orbisProvider'
+import { GET_SPORT_FEEDS } from '../graphql/query/getSportFeeds'
+import { useDiscoverSports } from '../hooks/lens-react/useDiscoverSposrtsRelated'
 import Post from './Post'
 
 export default function SportCategory() {
-  const [sportsPosts, setsportsPosts] = useState()
-  const [isSportsPostsLoading, setisSportsPostsLoading] = useState(false)
-
-  const context = useContext(OrbisProvider)
-
-  useEffect(() => {
-   const fetchSportsPost =  async () =>  {
-    setisSportsPostsLoading(true)
-    let { data, error } = await context.getPosts({
-      context : "peruzi10",
-      only_master : true,
-      tag : "sports"
-    });
-
-    setsportsPosts(data)
-    setisSportsPostsLoading(false)
-   }
-
-   fetchSportsPost()
-  }, [])
-    console.log("sports posts", sportsPosts)
-
-     if(isSportsPostsLoading){
+const {posts, isPostsLoading} = useDiscoverSports()
+ const {data, loading} = useQuery(GET_SPORT_FEEDS)
+   console.log("posts from sport category", data)
+     if(isPostsLoading){
       return(
         <div>
           <h1>Loading</h1>
@@ -35,7 +18,7 @@ export default function SportCategory() {
      }
   return (
     <div>
-        {sportsPosts?.map((post, i) => {
+        {posts?.explorePublications?.items?.map((post, i) => {
 
           return(
             <Post  key={i} post = {post}    />

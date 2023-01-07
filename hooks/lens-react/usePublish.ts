@@ -63,7 +63,7 @@ const  usePublish = () => {
              //"0x41cd"   ||  //user?.attributes.lensProfileId
    const {uploadToIpfs : saveFile, isUploading, isUploadingError : uploadingError} = useUploadToIPFS()
   const {signIn} = useSignIn()
-  const publishPost = async (description,  postCover) => {
+  const publishPost = async (description,  postCover, tags) => {
          //Initialize  post  metadata
          if(!thePrfId){
             alert("connect  your  profile first")
@@ -76,7 +76,7 @@ const  usePublish = () => {
           description: description,
           content: description,
           locale : "en-US",
-           tags : ["peruzishorts"],
+           tags : tags,
            mainContentFocus :  'ARTICLE',
            external_url: null,
           image: postCover,

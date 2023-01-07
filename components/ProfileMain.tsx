@@ -14,7 +14,7 @@ import UserBanner from './UserBanner'
 import UserStats from './UserStats'
 import {HiOutlineMail} from 'react-icons/hi'
 import {PINATA_GATEWAY} from '../assets/constants'
-export default function ProfileMain({userInfo, userPosts}) {
+export default function ProfileMain({userDetails, userPosts}) {
 const [isEditProfile,setisEditProfile] = useState(false)
 const [isTokenGateModal, setisTokenGateModal] = useState(false)
 const {user, orbis, isAuthenticated} = useSelector(state => state.user)
@@ -28,7 +28,7 @@ const toggleIsEditProfile = ( ) =>  {
   isTokenGateModal ? setisTokenGateModal(false) : setisTokenGateModal(true)
  }
 
- const pfpUrl = userInfo?.details?.profile?.pfp.replace("ipfs://", PINATA_GATEWAY)
+ const  pfpUrl = userDetails?.profile?.picture?.original.url.replace("ipfs://", PINATA_GATEWAY)
   return (
     <div className='xs:w-[100vw] xs:h-screen sm:h-screen  sm:w-[470px] md:w-[500px] w-[600px] xl:w-[650px]
     overflow-y-scroll xs:mb-[58px] hide-scrollbar sm:mb-0  '>
@@ -44,18 +44,18 @@ const toggleIsEditProfile = ( ) =>  {
                 <img  src={pfpUrl || "/img/peruzi.png"}  className="max-w-[80%] max-h-[105px] rounded-lg"   />
               </div>
               <div className='mt-9 '>
-              <h1 className='font-semibold text-xl'>{userInfo?.details?.profile?.username || "--"}</h1>
+              <h1 className='font-semibold text-xl'>{userDetails?.profile?.handle || "-" || "--"}</h1>
                <div className='flex gap-4 xs:gap-2'>
                   <div className='flex items-center gap-2'>
-                         <h3  className='font-bold text-lg'>{userInfo?.count_followers || "--"}</h3>
+                         <h3  className='font-bold text-lg'>{userDetails?.profile?.stats?.totalFollowers || "--"}</h3>
                        <h2>FolLowers</h2>
                   </div>
                   <div className='flex items-center gap-2'>
-                         <h3 className='font-bold text-lg'>{userInfo?.count_following || "--"}</h3>
+                         <h3 className='font-bold text-lg'>{userDetails?.profile?.stats?.totalFollowing || "--"}</h3>
                        <h2>Following</h2>
                   </div>
                   <div className='flex items-center gap-2 xs:hidden xl:flex '>
-                         <h3 className='font-bold text-lg'>{userPosts?.length || "--"}</h3>
+                         <h3 className='font-bold text-lg'>{userDetails?.profile?.stats?.totalPosts || "--"}</h3>
                        <h2>Posts</h2>
                   </div>
                </div>
@@ -73,21 +73,21 @@ const toggleIsEditProfile = ( ) =>  {
            </div>
         </div>
 
-           {isEditProfile  &&
+           {/*isEditProfile  &&
              <ProfileSettingsModal>
               <EditProfile   toggleIsEditProfile = {toggleIsEditProfile}
                
               />
             </ProfileSettingsModal>
-           }
+                  */}
 
-            {isTokenGateModal &&
+            {/*isTokenGateModal &&
              <ProfileSettingsModal>
              <TokenGateKeys toggleIsTokenGateModal ={toggleIsTokenGateModal} />
              </ProfileSettingsModal>
-            }
+                */}
              <div className='mt-[65px]'>
-              {userPosts?.map((post, i) =>  {
+              {userPosts?.publications?.items?.map((post, i) =>  {
 
                 return(
                   <Post  key={i} post = {post} />
