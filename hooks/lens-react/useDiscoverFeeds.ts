@@ -11,7 +11,7 @@ export const useDiscoverFeeds = (tags) => {
                 "sortCriteria":   "LATEST",  //"TOP_COLLECTED",
                 "publicationTypes": ["POST", "MIRROR"],
                 
-                "sources":  ['peruzika2'],      //["audios"], 
+                "sources":  ['peruzika'],      //["audios"], 
 
                 metadata : {
                     "mainContentFocus": ["ARTICLE"],

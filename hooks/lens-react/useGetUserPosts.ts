@@ -10,7 +10,7 @@ import { GET_USER_POSTS } from '../../graphql/query/getUserPosts'
                 "profileId": id,
                 "publicationTypes": ["POST",  "MIRROR"],
                  
-                "sources":  ["peruzika2"]   //["audios"]
+                "sources":  ["peruzika"]   //["audios"]
             }
         }
     })

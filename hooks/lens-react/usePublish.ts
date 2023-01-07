@@ -86,7 +86,7 @@ const  usePublish = () => {
           media  :[{
             item : postCover
           }],
-          appId: 'peruzika2',
+          appId: 'peruzika',
         }
 
         
