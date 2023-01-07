@@ -26,14 +26,14 @@ export default function App({ Component, pageProps }: AppProps) {
    
   return (
     <Provider store={store}>
-      <OrbisProvider.Provider value={orbis}>
+      
         <WagmiConfig client={client}>
          <ApolloProvider client={apolloClient}>
     <Component {...pageProps} />
     </ApolloProvider>
 
     </WagmiConfig>
-    </OrbisProvider.Provider>
+
     
    
     
