@@ -3,7 +3,7 @@ import {useContext, useEffect, useState} from 'react'
 import OrbisProvider from '../context/orbisProvider'
 import {AiOutlineLeft, AiOutlineLock} from 'react-icons/ai'
 import Link from 'next/link'
-import { truncatetext } from '../hooks/useSubstring'
+import { truncatetext } from '../hooks/lens-react/useSubstring'
 import PostReactions from './PostReactions'
 import PostCardFooter from './PostCardFooter'
 import TextareaAutosize from 'react-textarea-autosize';

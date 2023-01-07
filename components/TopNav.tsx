@@ -1,5 +1,4 @@
 // @ts-nocheck
-import {Orbis} from '@orbisclub/orbis-sdk'
 import { toggleNavbar } from '../redux/toggleSlice';
 import {useSelector, useDispatch} from 'react-redux'
 import { HiOutlineMenu, HiSearch } from 'react-icons/hi';
@@ -7,20 +6,13 @@ import { useState } from 'react';
 import { AiOutlineClose, AiOutlineLogin, AiOutlineSearch } from 'react-icons/ai';
 import Image from 'next/image';
 import Modal from './Modal';
-import { useAuthenticate } from '../hooks/orbis-react';
 import {ClipLoader} from 'react-spinners'
 
 
 export default function TopNav() {
   const [searchTxt, setsearchTxt] = useState("")
-  const [isConnectWallet, setisConnectWallet] = useState(false)
-   const {metamaskAuth, walletConnectAuth, phantomWalletAuth, isConnecting, isConnected, error, isError} = useAuthenticate()
-   const dispatch = useDispatch()
-    const orbis = new Orbis()
-      const authenticate = async () => {
-        let res = await orbis.connect();
-         console.log(res)
-      }
+
+   
       const toggleNavigation = () => {
         dispatch(toggleNavbar(true))
        
@@ -30,7 +22,7 @@ export default function TopNav() {
           isConnectWallet ? setisConnectWallet(false) : setisConnectWallet(true)  
       }
 
-      console.log("the  error", error)
+    
   return (
     <div className='border-y-2  flex gap-8 justify-between bg-white  md:hidden px-6 py-1 fixed top-0 w-[100vw] z-10'>
        <>
@@ -54,7 +46,7 @@ export default function TopNav() {
           <button className='bg-purple-500 xs:py-1 xs:px-4 rounded-lg sm:px-5 text-white font-semibold'
             onClick={toggleConnectWallet}
           >Log in</button>
-           { isConnectWallet &&
+           {/* isConnectWallet &&
            <Modal>
             <div className='flex items-center justify-between 
               py-2 px-1 border-b pb-3 border-b-gray-300 shadow-sm
@@ -112,7 +104,7 @@ export default function TopNav() {
                 </div>
               </div>
            </Modal>
-}
+                  */}
     </div>
   )
 }

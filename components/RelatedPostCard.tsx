@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import {useState} from 'react'
 import {PINATA_GATEWAY} from '../assets/constants'
-import { truncatetext } from '../hooks/useSubstring'
+import { truncatetext } from '../hooks/lens-react/useSubstring'
 
 export default function RelatedPostCard({post}) {
  

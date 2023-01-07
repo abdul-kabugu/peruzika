@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { HiClock } from 'react-icons/hi'
-import {truncatetext} from '../hooks/useSubstring'
+import {truncatetext} from '../hooks/lens-react/useSubstring'
 
 type HeadlineTypes = {
     news : {

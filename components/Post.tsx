@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux"
 import PostCardFooter from "./PostCardFooter"
 import PostHeader from "./PostHeader"
 import {PINATA_GATEWAY, PINATA_KEY, PINATA_SECRET} from '../assets/constants'
-import { truncatetext } from "../hooks/useSubstring"
+import { truncatetext } from "../hooks/lens-react/useSubstring"
 import Link from "next/link"
 
 

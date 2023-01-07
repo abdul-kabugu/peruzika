@@ -13,7 +13,7 @@ import { setUser, setOrbisObject } from '../redux/userSlice';
 import { BiLoader } from 'react-icons/bi';
 import { BeatLoader } from 'react-spinners';
 import { useRouter } from 'next/router';
-import { truncatetext } from '../hooks/useSubstring';
+import { truncatetext } from '../hooks/lens-react/useSubstring';
 import { usePublish, useUploadToIPFS } from '../hooks/lens-react';
 
 

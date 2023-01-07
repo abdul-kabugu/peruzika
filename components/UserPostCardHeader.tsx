@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import {useState} from 'react'
 import { HiOutlineDotsHorizontal, HiPencil } from 'react-icons/hi';
-import { truncatetext } from '../hooks/useSubstring'
+import { truncatetext } from '../hooks/lens-react/useSubstring'
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { IoMdClose } from 'react-icons/io';
