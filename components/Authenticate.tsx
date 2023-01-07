@@ -32,7 +32,7 @@ export default function Authenticate() {
         if(isDisconnected){
           return(
             <div>
-              <button className='py-2 px-4 border border-purple-200 font-semibold rounded-lg' onClick={handleConnectWallet}>connect wallet</button>
+              <button className='py-2 px-4 border border-purple-200  rounded-lg bg-purple-700 font-semibold text-white' onClick={handleConnectWallet}>connect wallet</button>
             </div>
           )
        }else if(LENS_ACCESS_TOKEN  === null ){
