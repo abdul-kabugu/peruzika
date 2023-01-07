@@ -8,32 +8,22 @@ import UserStats from '../../components/UserStats'
 
 import { setUser } from '../../redux/userSlice'
 import { useGetUserProfileInfo, useGetUserPosts } from '../../hooks/lens-react'
+import { HashLoader } from 'react-spinners'
 
 
 function UserDetails({userId}) {
- const [isGetUserLoading, setisGetUserLoading] = useState(false)
- // console.log("the user details from  user details page", userDetails)
-
-  // const dispatch = useDispatch()
-    //console.log("the user from  user id", user)
-
-     /* useEffect(() => {
-        const getConnectedAccount  =  async () => {
-          let res = await context.isConnected();
-            return res
-        }
-      
-         const setConnectedUser =  async () =>  {
-            const currentUser =  await getConnectedAccount()
-              dispatch(setUser({currentUser}))
-         }
-
-          setConnectedUser()
-        
-      }, [])*/
+ 
       
      const {userProfile, isUserInfoProfileError, isUserInfoProfileLoading} = useGetUserProfileInfo( userId)
      const {userPosts, isGetUserPostsError, isGetUserPostsLoading} = useGetUserPosts(userId)
+
+     if(isUserInfoProfileLoading || isGetUserPostsLoading) {
+      return(
+        <div className='w-[100%] h-screen flex items-center justify-center'>
+          <HashLoader size={100}  />
+        </div>
+      )
+     }
      console.log("the user details from  user details page", userProfile)
      console.log("the user posts from  user details page", userPosts)
   return (

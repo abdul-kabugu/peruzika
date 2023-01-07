@@ -8,6 +8,7 @@ import { setUser, setOrbisObject } from '../../redux/userSlice'
 import { useGetPostDetails } from '../../hooks/lens-react/useGetPostDetails'
 import { useRouter } from 'next/router'
 import { useGetPostComments } from '../../hooks/lens-react'
+import { HashLoader } from 'react-spinners'
 
 export default function PostPage({postId}) {
  /* console.log("the post details", postDetails)
@@ -38,8 +39,13 @@ getConnectedUser()
     const {postDetails, isPostDetailsError, isPostDetailsLoading} = useGetPostDetails(postId) 
     const {postComments, isGetPostComentsLoading, isGetPostCommentsError} = useGetPostComments(postId)
      
-    console.log("the returned id", postComments)
-     console.log("post full", postDetails)
+    if(isPostDetailsLoading || isGetPostComentsLoading) {
+      return(
+        <div className='w-[100%] h-screen flex items-center justify-center'>
+          <HashLoader size={100}  />
+        </div>
+      )
+     }
   return (
     <div>
         <div className='max-w-[1300px] h-screen mx-auto'>

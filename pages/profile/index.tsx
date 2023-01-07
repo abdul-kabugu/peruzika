@@ -7,14 +7,21 @@ import {PINATA_GATEWAY, PINATA_KEY, PINATA_SECRET} from '../../assets/constants'
 import { Sidebar, TopNav, TrendingBar } from '../../components'
 import ProfileMain from '../../components/ProfileMain'
 import { useGetUserPosts, useGetUserProfileInfo, useGetUserProfiles } from '../../hooks/lens-react'
+import { HashLoader } from 'react-spinners'
 
 export default function UserProfile() {
 const {userProfiles, isUserProfilesLoading, isUserProfileError} = useGetUserProfiles()
 const FIRST_USER_ID = userProfiles?.profiles?.items[0]
  const {userProfile, isUserInfoProfileLoading, isUserInfoProfileError} = useGetUserProfileInfo(FIRST_USER_ID?.id)
  const {userPosts, isGetUserPostsLoading, isGetUserPostsError} = useGetUserPosts(FIRST_USER_ID?.id)
-  console.log("the user posts", userPosts)
 
+ if(isUserInfoProfileLoading || isGetUserPostsLoading) {
+  return(
+    <div className='w-[100%] h-screen flex items-center justify-center'>
+      <HashLoader size={100}  />
+    </div>
+  )
+ }
      
          
   

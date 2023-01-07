@@ -8,46 +8,21 @@ import { useSelector, useDispatch } from 'react-redux'
 import {setUser, setOrbisObject} from '../redux/userSlice'
 import {PINATA_GATEWAY, PINATA_KEY, PINATA_SECRET} from '../assets/constants'
 import { useDiscoverFeeds } from '../hooks/lens-react'
+import { BiLoader } from 'react-icons/bi'
+import { HashLoader } from 'react-spinners'
 
 export default function Home() {
-    /*const [isDispacteched, setisDispacteched] = useState(false)
-   const orbis = new Orbis({
-      PINATA_GATEWAY: PINATA_GATEWAY,
-      PINATA_API_KEY: PINATA_KEY,
-      PINATA_SECRET_API_KEY: PINATA_SECRET
-    }
-     
-    )
+  
 
-    
-      
-    
-    
-    
-   
-  
-  const user = useSelector(state => state.user)
-  const dispatch = useDispatch()
-    const getSession = async () => {
-          const res = await orbis.isConnected();
-           return res
-  }
-  
-   const  getConnectedUser = async () => {
-     const currentUser = await getSession()
-      dispatch(setUser({currentUser}))
-      dispatch(setOrbisObject(orbis))
-      console.log("conneted user", currentUser )
-      setisDispacteched(true)
-   }
-      // getConnectedUser()  
-  useEffect(() => {
-      
-    getConnectedUser()  
-    console.log("the orbis", orbis)
-    
-  }, [isDispacteched])*/
   const {posts, isPostsLoading, isPostsError} = useDiscoverFeeds()
+
+   if(isPostsLoading) {
+    return(
+      <div className='w-[100%] h-screen flex items-center justify-center'>
+        <HashLoader  size={100}  />
+      </div>
+    )
+   }
   return (
     <div className='max-w-[1300px] mx-auto  '  >
       <TopNav   />
